@@ -14,3 +14,9 @@ Back End:
 - built in Java
 - reads in the previous day's user accounts file and available tickets file and then applies all of the daily transactions from a merged set of daily transaction files to these files
 - this produces a new Current User Accounts file and a new Available Tickets File for tomorrow's Front End Runs
+
+How to use:
+     $ make
+     $ ./DGFE file1.txt file2.txt
+
+
