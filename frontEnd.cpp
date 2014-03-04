@@ -24,18 +24,20 @@ void readFile(string file1, string file2){
 		cout << "Error opening input files "<< endl;
 		exit(1);
 	}else{
-		string fileOneContents;
-		string fileTwoContents;
-		inputFile1 >> fileOneContents;
-		cout << fileOneContents;
+
+		/*
+		 * This is where the magic happens!
+         * 
+		 */
+
 	}
+
 }
 
 /*
  * the main method takes in 2 arguements and passes it onto readFile
  */
 int main(int argc, char* argv[]){
-
 	// Check if the user input 3 arguements
 	if(argc > 2 || argc == 1){
 		// read the files using the readFile method
