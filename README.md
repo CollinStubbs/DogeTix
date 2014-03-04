@@ -4,6 +4,7 @@ DogeTix
 A ticket selling service developed using Extreme Programming methods for our Software Quality Assurance Course
 
 Project Details
+
 Front End:
 - built in C++
 - reads in a file of tickets available for purchase and file containing info with current user accounts in the system
