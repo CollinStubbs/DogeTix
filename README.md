@@ -4,6 +4,7 @@ DogeTix
 A ticket selling service developed using Extreme Programming methods for our Software Quality Assurance Course
 
 Project Details
+
 Front End:
 - built in C++
 - reads in a file of tickets available for purchase and file containing info with current user accounts in the system
@@ -16,7 +17,16 @@ Back End:
 - this produces a new Current User Accounts file and a new Available Tickets File for tomorrow's Front End Runs
 
 How to use:
-     $ make
-     $ ./DGFE file1.txt file2.txt
 
+      $ make
+      
+      $ ./DGFE file1.txt file2.txt
+
+How the Front End works:
+- transaction commands are created in transactionCommands.cpp
+- frontEnd.cpp handles all the front end activities through the use of the commands in transactionCommands.cpp
+
+Updates as of today:
+- implemented frontEnd.cpp and transactionCommands.cpp
+- still need to determine how the files should be structured and parsed + need to implement some test commands
 
