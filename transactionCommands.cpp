@@ -13,7 +13,7 @@
  * - Reads in current user accounts file and ask for a username
  * - After username is accepted reads in the available tickets file and prompts user for next command 
  */
-void Login(){
+void Login(string username){
 
 	
 }

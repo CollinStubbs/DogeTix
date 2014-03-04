@@ -47,7 +47,11 @@ void readFile(string file1, string file2){
 			cin >> transactionCommand;
 			
 			if(transactionCommand == "login"){
+				string userName;
 				cout << "login" << endl;
+				cout << "Please enter username: ";
+				cin >> userName;
+				login(userName);
 
 			}else if(transactionCommand == "logout"){
 				cout << "logout" << endl;
