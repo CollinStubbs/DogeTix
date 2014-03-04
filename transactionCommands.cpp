@@ -2,7 +2,6 @@
  * This file contains all the methods for the transactions
  * in the front end
  */
-
 #include <iostream>
 #include <fstream>
 #include <string>
