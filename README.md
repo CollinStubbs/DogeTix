@@ -30,3 +30,8 @@ Updates as of today:
 - implemented frontEnd.cpp and transactionCommands.cpp
 - still need to determine how the files should be structured and parsed + need to implement some test commands
 
+How to contribute:
+- If you would like to add a feature create a branch from master and develop on that branch
+- test it before merging with master this ensures that there won't be any errors with the master branch
+     
+
