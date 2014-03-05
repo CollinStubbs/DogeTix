@@ -20,7 +20,7 @@ How to use:
 
       $ make
       
-      $ ./DGFE tickets.txt user_info.txt
+      $ ./DTFE tickets.txt user_info.txt
 
 How the Front End works:
 - transaction commands are created in transactionCommands.cpp
