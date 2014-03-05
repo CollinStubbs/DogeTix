@@ -17,10 +17,6 @@ using namespace std;
 void readFile(string file1, string file2){
 
 	string transactionCommand;
-
-	// String to store data in file
-	string fileOneContents, fileTwoContents;
-
 	// Open the two input files
 	ifstream inputFile1(file1.c_str());
 	ifstream inputFile2(file2.c_str());
@@ -30,50 +26,57 @@ void readFile(string file1, string file2){
 		exit(1);
 	}else{
 		/*
-		 * This is where everything happens.
+		 *
+		 >>>>>>>>>>>PARSE THE FILES HERE>>>>>>>>>>
+		 *
 		 */
-		while(1){
-			cout << endl;
-			cout << "login:     login to a user account and start a frontEnd session" << endl;
-			cout << "logout:    logout of a user account and end a frontEnd session" << endl;
-			cout << "create:    create a user account" << endl;
-			cout << "delete:    delete a user account" << endl;
-			cout << "sell:      sell a ticket or tickets to an event" << endl;
-			cout << "buy:       purchase a ticket or tickets to an event" << endl;
-			cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
-			cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
-			cout << endl;
-			cout << "Please enter a command: ";
-			cin >> transactionCommand;
-			
-			if(transactionCommand == "login"){
-				string userName;
-				cout << "login" << endl;
-				cout << "Please enter username: ";
-				cin >> userName;
-				login(userName);
+		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
+		cout << "Please login to start a Front End session" << endl;
+		cin >> transactionCommand;
+		if(transactionCommand == "login"){
+			string userName;
+			cout << "Please enter username: ";
+			cin >> userName;
 
-			}else if(transactionCommand == "logout"){
-				cout << "logout" << endl;
-				break;
-
-			}else if(transactionCommand == "create"){
-				cout << "create" << endl;
-			
-			}else if(transactionCommand == "delete"){
-				cout << "delete" << endl;
-			
-			}else if(transactionCommand == "sell"){
-				cout << "sell" << endl;
-			
-			}else if(transactionCommand == "buy"){
-				cout << "refund" << endl;
-			
-			}else if(transactionCommand == "addCredit"){
+			while(1){
+				cout << endl;
+				cout << "logout:    logout of a user account and end a frontEnd session" << endl;
+				cout << "create:    create a user account" << endl;
+				cout << "delete:    delete a user account" << endl;
+				cout << "sell:      sell a ticket or tickets to an event" << endl;
+				cout << "buy:       purchase a ticket or tickets to an event" << endl;
+				cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
+				cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
+				cout << endl;
+				cout << "Please enter a command: ";
+				cin >> transactionCommand;
 				
-				cout << "addCredit" << endl;
-			}
-		}	
+				if(transactionCommand == "logout"){
+					cout << "Logging out!" << endl;
+					break;
+
+				}else if(transactionCommand == "create"){
+					cout << "You have selected create" << endl;
+				
+				}else if(transactionCommand == "delete"){
+					cout << "You have selected Delete" << endl;
+				
+				}else if(transactionCommand == "sell"){
+					cout << "You have selected sell" << endl;
+				
+				}else if(transactionCommand == "buy"){
+					cout << "You have selected refund" << endl;
+				
+				}else if(transactionCommand == "addCredit"){
+					
+					cout << "You have selected addCredit" << endl;
+				}
+			}	
+
+		}else{
+			cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
+		}
+
 	}
 }
 
