@@ -1,7 +1,8 @@
 # A simple make file for our front end
+FrontEnd : FrontEnd.class
 
-frontEnd: frontEnd.cpp transactionCommands.cpp
-	g++ -o DTFE frontEnd.cpp transactionCommands.cpp
+FrontEnd.class : 
+	g++ -o DTFE $ frontEnd.cpp transactionCommands.cpp
 
 clean:
-	rm DogeTixFrontEnd
+	rm -f % *.out
