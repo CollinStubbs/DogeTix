@@ -14,7 +14,7 @@ struct user {
 	string type;
 	long credit;
 };
-struct tickets {
+struct ticket {
 	string eventName;
 	string sellerName;
 	int nTickets;
@@ -29,19 +29,46 @@ void readFile(string file1, string file2){
 
 	string transactionCommand;
 	// Open the two input files
-	fstream ticketStream(file1.c_str());
-	fstream userStream(file2.c_str());
+	ifstream ticketStream(file1.c_str());
+	ifstream userStream(file2.c_str());
+	string line;
+	char delimeter = '_';
 	// handle if input file fails
 	if(ticketStream.fail() || userStream.fail()){
 		cout << "Error opening input files "<< endl;
 		exit(1);
 	}else{
-		/*
-		 *
-		 >>>>>>>>>>>PARSE THE FILES HERE>>>>>>>>>>
-		 *
-		 */
-		 
+		//PARSE FILES
+		user users [256];
+		ticket tickets [256];
+		if (userStream.is_open()) {
+			for (int i=0; i<=256; i++) {
+				while (getline (userStream,line)) {
+					user temp;
+					temp.name = line.substr (0,15);
+					temp.type = line.substr (16,2);
+					temp.credit = atoi((line.substr (19)).c_str());
+					users[i] = temp;
+					//cout << users[i].name << users[i].type << users[i].credit << endl;
+				}
+			}
+			userStream.close();
+		}
+
+		if (ticketStream.is_open()) {
+			for (int x=0; x<=256; x++) {
+				while(getline (ticketStream,line)) {
+					ticket temp;
+					temp.eventName = line.substr (0,19);
+					temp.sellerName = line.substr (20,14);
+					temp.nTickets = atoi((line.substr (35,3)).c_str());
+					temp.ticketPrice = atoi((line.substr (39)).c_str());
+					tickets[x] = temp;
+					//cout << tickets[x].eventName << tickets[x].sellerName << tickets[x].nTickets << tickets[x].ticketPrice << endl;
+				}
+			}
+			ticketStream.close();
+		}
 		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
 		cout << "Please login to start a Front End session" << endl;
 		cin >> transactionCommand;
