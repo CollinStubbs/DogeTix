@@ -33,7 +33,10 @@ void readFile(string file1, string file2){
 		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
 		cout << "Please login to start a Front End session" << endl;
 		cin >> transactionCommand;
+		
+		// Check to make sure user logs in first
 		if(transactionCommand == "login"){
+			
 			string userName;
 			cout << "Please enter username: ";
 			cin >> userName;
@@ -52,7 +55,7 @@ void readFile(string file1, string file2){
 				cin >> transactionCommand;
 				
 				if(transactionCommand == "logout"){
-					cout << "Logging out!" << endl;
+					cout << "Logging out, have a great day!" << endl;
 					break;
 
 				}else if(transactionCommand == "create"){
@@ -65,14 +68,19 @@ void readFile(string file1, string file2){
 					cout << "You have selected sell" << endl;
 				
 				}else if(transactionCommand == "buy"){
-					cout << "You have selected refund" << endl;
+					cout << "You have selected buy" << endl;
 				
+				}else if(transactionCommand == "refund"){
+					cout << "You have selected refund" << endl;
+
 				}else if(transactionCommand == "addCredit"){
 					
 					cout << "You have selected addCredit" << endl;
+				}else{
+					cout << "Invalid command, please enter another command" << endl;
 				}
 			}	
-
+		
 		}else{
 			cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
 		}
