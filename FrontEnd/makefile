@@ -3,8 +3,8 @@ FrontEnd : FrontEnd.class
 
 FrontEnd.class : 
 	g++ -o DTFE $ frontEnd.cpp transactionCommands.cpp
-	./DTFE.out
-	rm -f $ *.out
+	./DTFE
+	rm -f $ DTFE
 
 clean:
 	rm -f % *.out
