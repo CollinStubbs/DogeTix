@@ -10,12 +10,12 @@
 #include "transactionCommands.h" // this file contains all the transaction commands
 
 using namespace std;
-struct user {
+struct User {
 	string name;
 	string type;
 	long credit;
 };
-struct ticket {
+struct Event {
 	string eventName;
 	string sellerName;
 	int nTickets;
