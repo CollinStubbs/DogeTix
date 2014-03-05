@@ -29,10 +29,10 @@ void readFile(string file1, string file2){
 
 	string transactionCommand;
 	// Open the two input files
-	ifstream inputFile1(file1.c_str());
-	ifstream inputFile2(file2.c_str());
+	fstream ticketStream(file1.c_str());
+	fstream userStream(file2.c_str());
 	// handle if input file fails
-	if(inputFile1.fail() || inputFile2.fail()){
+	if(ticketStream.fail() || userStream.fail()){
 		cout << "Error opening input files "<< endl;
 		exit(1);
 	}else{
@@ -41,6 +41,7 @@ void readFile(string file1, string file2){
 		 >>>>>>>>>>>PARSE THE FILES HERE>>>>>>>>>>
 		 *
 		 */
+		 
 		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
 		cout << "Please login to start a Front End session" << endl;
 		cin >> transactionCommand;
