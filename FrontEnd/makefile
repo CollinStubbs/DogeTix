@@ -3,7 +3,7 @@ FrontEnd : FrontEnd.class
 
 FrontEnd.class : 
 	g++ -o DTFE $ frontEnd.cpp transactionCommands.cpp
-	./DTFE
+	$ ./DTFE tickets.txt user_info.txt
 	rm -f $ DTFE
 
 clean:
