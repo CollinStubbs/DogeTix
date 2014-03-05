@@ -18,9 +18,7 @@ Back End:
 
 How to use:
 
-      $ make
-      
-      $ ./DTFE tickets.txt user_info.txt
+      $ make FrontEnd
 
 How the Front End works:
 - transaction commands are created in transactionCommands.cpp
@@ -29,6 +27,7 @@ How the Front End works:
 Updates as of today:
 - implemented frontEnd.cpp and transactionCommands.cpp
 - still need to determine how the files should be structured and parsed + need to implement some test commands
+- Edited makefile for easier automation
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch

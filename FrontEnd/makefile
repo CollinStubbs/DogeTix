@@ -8,3 +8,4 @@ FrontEnd.class :
 
 clean:
 	rm -f % *.out
+	rm -f % DTFE
