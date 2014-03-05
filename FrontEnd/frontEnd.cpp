@@ -87,7 +87,6 @@ void readFile(string file1, string file2){
 
 	}
 }
-
 /*
  * the main method takes in 2 arguements and passes it onto readFile
  */

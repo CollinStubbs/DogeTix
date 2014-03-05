@@ -13,7 +13,7 @@
  * - Reads in current user accounts file and ask for a username
  * - After username is accepted reads in the available tickets file and prompts user for next command 
  */
-void Login(){
+void userLogin(){
 
 	
 }
@@ -21,7 +21,7 @@ void Login(){
  * - ends the front end session
  * - writes out a daily transaction file
  */
-void Logout(){
+void userLogout(){
 
 	
 }
@@ -30,7 +30,7 @@ void Logout(){
  * - creates a new user and asks for new username
  * - should ask whether user is admin or full-standard, buy-standard,sell-standard
  */
-void Create(){
+void createUser(){
 
 	
 }
@@ -40,7 +40,7 @@ void Create(){
  * - should ask for username
  * - saves this info in daily transaction file
  */
-void Delete(){
+void deleteUser(){
 
 	
 }
@@ -51,7 +51,7 @@ void Delete(){
  * - should ask for number of tickets for sale
  * - saves this info in the daily transaction file
  */
-void Sell(){
+void sellTicket(){
 
 	
 }
@@ -63,7 +63,7 @@ void Sell(){
  * - subtracts the number of tickets from the seller's inventory
  * - saves this info in the daily transaction file
  */
-void Buy(){
+void buyTicket(){
 
 	
 }
@@ -74,7 +74,7 @@ void Buy(){
  * - transfer the specified amount of credit from the seller’s credit balance to the buyer’s credit balance
  * - save this information in the daily transaction file
  */
-void Refund(){
+void refundUser(){
 
 	
 }
@@ -84,7 +84,7 @@ void Refund(){
  * - in standard account should ask for the amount of credit
  * - saves this information in a daily transaction file
  */
-void AddCredit(){
+void addCredit(){
 
 	
 }
