@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <algorithm>
 #include "transactionCommands.h" // this file contains all the transaction commands
 
 using namespace std;
@@ -32,7 +33,6 @@ void readFile(string file1, string file2){
 	ifstream ticketStream(file1.c_str());
 	ifstream userStream(file2.c_str());
 	string line;
-	char delimeter = '_';
 	// handle if input file fails
 	if(ticketStream.fail() || userStream.fail()){
 		cout << "Error opening input files "<< endl;
