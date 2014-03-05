@@ -9,6 +9,17 @@
 #include "transactionCommands.h" // this file contains all the transaction commands
 
 using namespace std;
+struct user {
+	string name;
+	string type;
+	long credit;
+};
+struct tickets {
+	string eventName;
+	string sellerName;
+	int nTickets;
+	long ticketPrice;
+};
 /*
  *	Reads in 2 files:
  *	1) file of tickets available for purchase
