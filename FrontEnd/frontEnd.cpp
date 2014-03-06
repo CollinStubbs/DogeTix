@@ -30,6 +30,7 @@ ofstream outToDTF("DailyTransactionFile.txt");
  * it will set currentUser as that user.
  */
 void login();
+void createUser();
 /*
  *	Reads in 2 files:
  *	- file of tickets available for purchase
@@ -141,6 +142,7 @@ void initialize(string file1, string file2){
 				}else if(transactionCommand == "create"){
 					if((currentUser.type).compare("AA") == 0){
 						cout << "You have selected create" << endl;
+						createUser();
 					}
 					else{
 						cout << "This is a privileged transaction that requires an Admin account."<<endl;
@@ -217,4 +219,24 @@ void login(){
 			cout << "Invalid username."<<endl;
 		}
 	} while ((currentUser.name).compare("") == 0);
+}
+
+void createUser(){
+	User newUser;
+	string nUsername;
+	bool accepted = 0;
+	do {
+		cout << "Please enter a UNIQUE new username: ";
+		cin >> nUsername;
+
+		for (int i=0; i<=256; i++) {
+			if((users[i].name)==(nUsername) || nUsername.length() > 15){
+			cout << "Please pick a UNIQUE username" <<endl;
+			}
+			else{
+			accepted = 1;
+			}
+		}
+} while (accepted == 0);
+	newUser.name = nUsername;
 }
