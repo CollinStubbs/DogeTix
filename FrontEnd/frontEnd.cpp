@@ -107,7 +107,9 @@ void readFile(string file1, string file2){
 			while(1){
 				cout << endl;
 				cout << "logout:    logout of a user account and end a frontEnd session" << endl;
+				if((currentUser.type).compare("AA") == 0) {
 				cout << "create:    create a user account" << endl;
+				}
 				cout << "delete:    delete a user account" << endl;
 				cout << "sell:      sell a ticket or tickets to an event" << endl;
 				cout << "buy:       purchase a ticket or tickets to an event" << endl;
