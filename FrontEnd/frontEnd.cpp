@@ -1,3 +1,11 @@
+/* TEAM 12
+ *
+ * Matthew Militante, 100457072
+ * Collin Stubbs, 100454604
+ * Andrew Gulla, 100395486
+ *
+ */
+
 /*
  * This is the main front end file which will use 
  * the methods in transactionCommands.cpp
@@ -7,8 +15,7 @@
 #include <string>
 #include <cstdlib>
 #include <algorithm>
-#include "transactionCommands.h" // this file contains all the transaction commands
-#include "data.h"
+#include "data.h" // Structures are held in this header file
 
 using namespace std;
 
@@ -16,12 +23,34 @@ static User users [256];
 static Event tickets [256];
 static User currentUser;
 
+// output to daily transaction file
+ofstream outToDTF("DailyTransactionFile.txt");
+/*
+ * login takes a string as input and checks if it is in the database and if it is 
+ * it will set currentUser as that user.
+ */
 void login();
 /*
  *	Reads in 2 files:
- *	1) file of tickets available for purchase
- *	2) file containing information regarding current user accounts
+ *	- file of tickets available for purchase
+ *	- file containing information regarding current user accounts
+ * An output file stream is used to output any transactions into DailyTransactionFile.txt
  */
+void initialize(string file1, string file2);
+
+int main(int argc, char* argv[]){
+	// Check if the user input 3 arguements
+	if(argc > 2 || argc == 1){
+		// read the files using the readFile method
+		initialize(argv[1], argv[2]);
+	}else{
+		// This handles if the user inputs more than two arguements
+		cout << "Usage: frontEnd [available_tickets_file] [info_file]" << endl;
+		exit(1);
+	}
+	return 0;
+}
+
 void initialize(string file1, string file2){
 
 	string transactionCommand;
@@ -73,6 +102,7 @@ void initialize(string file1, string file2){
 		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
 		cout << "Please type 'login' to start a Front End session" << endl;
 		cin >> transactionCommand;
+		outToDTF << transactionCommand << endl;
 		
 		// Check to make sure user logs in first
 		if(transactionCommand == "login"){
@@ -160,26 +190,11 @@ void initialize(string file1, string file2){
 		}
 
 	}
-}
-/*
- * the main method takes in 2 arguements and passes it onto readFile
- */
-int main(int argc, char* argv[]){
-	// Check if the user input 3 arguements
-	if(argc > 2 || argc == 1){
-		// read the files using the readFile method
-		initialize(argv[1], argv[2]);
-	}else{
-		// This handles if the user inputs more than tw arguements
-		cout << "Usage: frontEnd [available_tickets_file] [info_file]" << endl;
-		exit(1);
-	}
-	return 0;
+
+	// close the output stream
+	outToDTF.close();
 } 
-/*
- * login takes a string as input and checks if it is in the database and if it is 
- * it will set currentUser as that user.
- */
+
 void login(){
 	currentUser.name = "";
 	string userName;
@@ -188,6 +203,7 @@ void login(){
 	do {
 		cout << "Please enter username: ";
 		cin >> userName;
+		outToDTF << userName;
 			
 		//checks the users and sets the current user 
 		for(int i = 0; i< 256; i++){
