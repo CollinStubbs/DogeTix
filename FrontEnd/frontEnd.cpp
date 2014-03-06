@@ -221,6 +221,7 @@ void login(){
 	} while ((currentUser.name).compare("") == 0);
 }
 
+/*
 void createUser(){
 	User newUser;
 	string nUsername;
@@ -237,6 +238,7 @@ void createUser(){
 			accepted = 1;
 			}
 		}
-} while (accepted == 0);
-	newUser.name = nUsername;
+	} while (accepted == 0);
+		newUser.name = nUsername;
 }
+*/
