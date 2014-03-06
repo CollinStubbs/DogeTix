@@ -44,7 +44,7 @@ void initialize(string file1, string file2){
 				temp.credit = atoi((line.substr (19)).c_str());
 				temp.loginState = false; //Makes sure user isnt set to logged in
 				users[i] = temp;
-				cout << users[i].name << users[i].type << users[i].credit << endl;
+				cout << users[i].name << endl;// << users[i].type << users[i].credit << endl;
 				i++;
 			}
 			userStream.close();
