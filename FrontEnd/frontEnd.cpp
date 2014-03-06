@@ -122,20 +122,40 @@ void readFile(string file1, string file2){
 					break;
 
 				}else if(transactionCommand == "create"){
-					cout << "You have selected create" << endl;
-				
+					if((currentUser.type).compare("AA") == 0){
+						cout << "You have selected create" << endl;
+					}
+					else{
+						cout << "This is a privileged transaction that requires an Admin account."<<endl;
+					}
 				}else if(transactionCommand == "delete"){
-					cout << "You have selected Delete" << endl;
-				
+					if((currentUser.type).compare("AA") == 0){
+						cout << "You have selected Delete" << endl;
+					}
+					else{
+						cout << "This is a privileged transaction that requires an Admin account."<<endl;
+					}
 				}else if(transactionCommand == "sell"){
-					cout << "You have selected sell" << endl;
-				
+					if((currentUser.type).compare("BS") == 0){
+						cout<<"You are not allowed to access this function with a buy account."<<endl;
+					}
+					else{
+						cout << "You have selected sell" << endl;
+					}
 				}else if(transactionCommand == "buy"){
-					cout << "You have selected buy" << endl;
-				
+					if((currentUser.type).compare("SS") == 0){
+						cout<<"You are not allowed to access this function with a sell account."<<endl;
+					}
+					else{
+						cout << "You have selected buy" << endl;
+					}
 				}else if(transactionCommand == "refund"){
-					cout << "You have selected refund" << endl;
-
+					if((currentUser.type).compare("AA") == 0){
+						cout << "You have selected refund" << endl;
+					}
+					else{
+						cout << "This is a privileged transaction that requires an Admin account."<<endl;
+					}
 				}else if(transactionCommand == "addCredit"){
 					
 					cout << "You have selected addCredit" << endl;
