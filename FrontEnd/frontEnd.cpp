@@ -96,6 +96,7 @@ void readFile(string file1, string file2){
 					if((users[i].name).compare(userName) == 0){
 						currentUser = users[i];
 						currentUser.loginState = true;
+						cout << "Successful login!" << endl;
 					}
 				}
 				if((currentUser.name).compare("") == 0){
