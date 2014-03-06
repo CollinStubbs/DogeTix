@@ -8,20 +8,12 @@
 #include <cstdlib>
 #include <algorithm>
 #include "transactionCommands.h" // this file contains all the transaction commands
+#include "data.h"
 
 using namespace std;
-struct User {
-	string name;
-	string type;
-	long credit;
-	bool loginState;
-};
-struct Event {
-	string eventName;
-	string sellerName;
-	int nTickets;
-	long ticketPrice;
-};
+
+static User users [256];
+static Event tickets [256];
 /*
  *	Reads in 2 files:
  *	1) file of tickets available for purchase
@@ -40,8 +32,6 @@ void readFile(string file1, string file2){
 		exit(1);
 	}else{
 		//PARSE FILES
-		User users [256];
-		Event tickets [256];
 		if (userStream.is_open()) {
 			//Incrementally adds users to the array line by line
 			for (int i=0; i<=256; i++) {
@@ -87,6 +77,7 @@ void readFile(string file1, string file2){
 			currentUser.name = "";
 			string userName;
 			
+			// LOGIN			
 			do {
 				cout << "Please enter username: ";
 				cin >> userName;
@@ -103,6 +94,7 @@ void readFile(string file1, string file2){
 					cout << "Invalid username."<<endl;
 				}
 			} while ((currentUser.name).compare("") == 0);
+
 
 			while(1){
 				cout << endl;
