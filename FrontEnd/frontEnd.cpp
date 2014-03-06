@@ -43,14 +43,16 @@ void readFile(string file1, string file2){
 		User users [256];
 		Event tickets [256];
 		if (userStream.is_open()) {
+			//Incrementally adds users to the array line by line
 			for (int i=0; i<=256; i++) {
 				while (getline (userStream,line)) {
 					User temp;
 					temp.name = line.substr (0,15);
+					//Removes '_' from Usernames
 					(temp.name).erase(remove((temp.name).begin(), (temp.name).end(), '_'), (temp.name).end());
 					temp.type = line.substr (16,2);
 					temp.credit = atoi((line.substr (19)).c_str());
-					temp.loginState = false;
+					temp.loginState = false; //Makes sure user isnt set to logged in
 					users[i] = temp;
 				}
 			}
@@ -58,13 +60,16 @@ void readFile(string file1, string file2){
 		}
 
 		if (ticketStream.is_open()) {
+			//Incrementally adds the ticket event to an array of events
 			for (int x=0; x<=256; x++) {
 				while(getline (ticketStream,line)) {
 					Event temp;
 					temp.eventName = line.substr (0,19);
+					//Formats event name to replace '_' with ' '
 					replace((temp.eventName).begin(), (temp.eventName).end(), '_', ' ');
 					temp.sellerName = line.substr (20,14);
-					temp.sellerName.erase(std::remove(temp.sellerName.begin(), temp.sellerName.end(), '_'), temp.sellerName.end());
+					//Removes '_' from seller name
+					temp.sellerName.erase(remove(temp.sellerName.begin(), temp.sellerName.end(), '_'), temp.sellerName.end());
 					temp.nTickets = atoi((line.substr (35,3)).c_str());
 					temp.ticketPrice = atoi((line.substr (39)).c_str());
 					tickets[x] = temp;
