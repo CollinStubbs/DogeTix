@@ -39,12 +39,12 @@ void readFile(string file1, string file2){
 		exit(1);
 	}else{
 		//PARSE FILES
-		user users [256];
-		ticket tickets [256];
+		User users [256];
+		Event tickets [256];
 		if (userStream.is_open()) {
 			for (int i=0; i<=256; i++) {
 				while (getline (userStream,line)) {
-					user temp;
+					User temp;
 					temp.name = line.substr (0,15);
 					temp.type = line.substr (16,2);
 					temp.credit = atoi((line.substr (19)).c_str());
@@ -58,7 +58,7 @@ void readFile(string file1, string file2){
 		if (ticketStream.is_open()) {
 			for (int x=0; x<=256; x++) {
 				while(getline (ticketStream,line)) {
-					ticket temp;
+					Event temp;
 					temp.eventName = line.substr (0,19);
 					temp.sellerName = line.substr (20,14);
 					temp.nTickets = atoi((line.substr (35,3)).c_str());
