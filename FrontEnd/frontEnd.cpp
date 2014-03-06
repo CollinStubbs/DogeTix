@@ -14,6 +14,9 @@ using namespace std;
 
 static User users [256];
 static Event tickets [256];
+static User currentUser;
+
+void login();
 /*
  *	Reads in 2 files:
  *	1) file of tickets available for purchase
@@ -73,46 +76,30 @@ void initialize(string file1, string file2){
 		
 		// Check to make sure user logs in first
 		if(transactionCommand == "login"){
-			User currentUser;
-			currentUser.name = "";
-			string userName;
-			
-			// LOGIN			
-			do {
-				cout << "Please enter username: ";
-				cin >> userName;
-			
-				//checks the users and sets the current user 
-				for(int i = 0; i< 256; i++){
-					if((users[i].name)==(userName)){
-						currentUser = users[i];
-						currentUser.loginState = true;
-						cout << "Successful login!" << endl;
-					}
-				}
-				if((currentUser.name).compare("") == 0){
-					cout << "Invalid username."<<endl;
-				}
-			} while ((currentUser.name).compare("") == 0);
-
+			//calls the login function
+			login();
 
 			while(1){
 				cout << endl;
 				cout << "logout:    logout of a user account and end a frontEnd session" << endl;
+
 				if((currentUser.type).compare("AA") == 0) {
-				cout << "create:    create a user account" << endl;
+					cout << "create:    create a user account" << endl;
 				}
 				if((currentUser.type).compare("AA") == 0){
-				cout << "delete:    delete a user account" << endl;
+					cout << "delete:    delete a user account" << endl;
 				}
+
 				cout << "sell:      sell a ticket or tickets to an event" << endl;
 				cout << "buy:       purchase a ticket or tickets to an event" << endl;
+
 				if((currentUser.type).compare("AA") == 0){
-				cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
+					cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
 				}
 				if((currentUser.type).compare("AA") == 0){
-				cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
+					cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
 				}
+
 				cout << endl;
 				cout << "Please enter a command: ";
 				cin >> transactionCommand;
@@ -189,3 +176,29 @@ int main(int argc, char* argv[]){
 	}
 	return 0;
 } 
+/*
+ * login takes a string as input and checks if it is in the database and if it is 
+ * it will set currentUser as that user.
+ */
+void login(){
+	currentUser.name = "";
+	string userName;
+			
+	// LOGIN			
+	do {
+		cout << "Please enter username: ";
+		cin >> userName;
+			
+		//checks the users and sets the current user 
+		for(int i = 0; i< 256; i++){
+			if((users[i].name).compare(userName) == 0){
+				currentUser = users[i];
+				currentUser.loginState = true;
+				cout << "Successful login!" << endl;
+			}
+		}
+		if((currentUser.name).compare("") == 0){
+			cout << "Invalid username."<<endl;
+		}
+	} while ((currentUser.name).compare("") == 0);
+}
