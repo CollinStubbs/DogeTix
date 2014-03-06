@@ -78,7 +78,7 @@ void readFile(string file1, string file2){
 			ticketStream.close();
 		}
 		cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
-		cout << "Please login to start a Front End session" << endl;
+		cout << "Please type 'login' to start a Front End session" << endl;
 		cin >> transactionCommand;
 		
 		// Check to make sure user logs in first
