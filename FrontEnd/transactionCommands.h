@@ -1,18 +1,18 @@
 /*
  * This is the header file containing all the transaction commands
  */
-extern void Login();
+extern void userLogin();
 
-extern void Logout();
+extern void userLogout();
 
-extern void Create();
+extern void createUser();
 
-extern void Delete();
+extern void deleteUser();
 
-extern void Sell();
+extern void sellTicket();
 
-extern void Buy();
+extern void buyTicket();
 
-extern void Refund();
+extern void refundUser();
 
-extern void AddCredit();
+extern void addCredit();
