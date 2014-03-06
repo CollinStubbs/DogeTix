@@ -50,6 +50,7 @@ void readFile(string file1, string file2){
 					(temp.name).erase(remove((temp.name).begin(), (temp.name).end(), '_'), (temp.name).end());
 					temp.type = line.substr (16,2);
 					temp.credit = atoi((line.substr (19)).c_str());
+					temp.loginState = false;
 					users[i] = temp;
 					cout << users[i].name << users[i].type << users[i].credit << endl;
 				}
@@ -87,13 +88,10 @@ void readFile(string file1, string file2){
 			for(int i = 0; i< 256; i++){
 				if((users[i].name).compare(userName) == 0){
 					currentUser = users[i];
-				}
-				else{
-					cout << userName << " is not in the database."<<endl;
-					exit(0);
-					//in the future make it loop back
+					currentUser.loginState = true;
 				}
 			}
+			
 
 			while(1){
 				cout << endl;
