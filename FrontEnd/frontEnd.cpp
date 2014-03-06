@@ -102,11 +102,17 @@ void initialize(string file1, string file2){
 				if((currentUser.type).compare("AA") == 0) {
 				cout << "create:    create a user account" << endl;
 				}
+				if((currentUser.type).compare("AA") == 0){
 				cout << "delete:    delete a user account" << endl;
+				}
 				cout << "sell:      sell a ticket or tickets to an event" << endl;
 				cout << "buy:       purchase a ticket or tickets to an event" << endl;
+				if((currentUser.type).compare("AA") == 0){
 				cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
+				}
+				if((currentUser.type).compare("AA") == 0){
 				cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
+				}
 				cout << endl;
 				cout << "Please enter a command: ";
 				cin >> transactionCommand;
@@ -151,8 +157,12 @@ void initialize(string file1, string file2){
 						cout << "This is a privileged transaction that requires an Admin account."<<endl;
 					}
 				}else if(transactionCommand == "addCredit"){
-					
-					cout << "You have selected addCredit" << endl;
+					if((currentUser.type).compare("AA") == 0){
+						cout << "You have selected addCredit" << endl;
+					}
+					else{
+						cout << "This is a privileged transaction that requires an Admin account."<<endl;
+					}
 				}else{
 					cout << "Invalid command, please enter another command" << endl;
 				}
