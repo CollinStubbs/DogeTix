@@ -46,10 +46,11 @@ void readFile(string file1, string file2){
 				while (getline (userStream,line)) {
 					User temp;
 					temp.name = line.substr (0,15);
+					(temp.name).erase(remove((temp.name).begin(), (temp.name).end(), '_'), (temp.name).end());
 					temp.type = line.substr (16,2);
 					temp.credit = atoi((line.substr (19)).c_str());
 					users[i] = temp;
-					//cout << users[i].name << users[i].type << users[i].credit << endl;
+					cout << users[i].name << users[i].type << users[i].credit << endl;
 				}
 			}
 			userStream.close();
@@ -60,11 +61,13 @@ void readFile(string file1, string file2){
 				while(getline (ticketStream,line)) {
 					Event temp;
 					temp.eventName = line.substr (0,19);
+					temp.eventName.erase(std::remove(temp.eventName.begin(), temp.eventName.end(), '_'), temp.eventName.end());
 					temp.sellerName = line.substr (20,14);
+					temp.sellerName.erase(std::remove(temp.sellerName.begin(), temp.sellerName.end(), '_'), temp.sellerName.end());
 					temp.nTickets = atoi((line.substr (35,3)).c_str());
 					temp.ticketPrice = atoi((line.substr (39)).c_str());
 					tickets[x] = temp;
-					//cout << tickets[x].eventName << tickets[x].sellerName << tickets[x].nTickets << tickets[x].ticketPrice << endl;
+					cout << tickets[x].eventName << tickets[x].sellerName << tickets[x].nTickets << tickets[x].ticketPrice << endl;
 				}
 			}
 			ticketStream.close();
