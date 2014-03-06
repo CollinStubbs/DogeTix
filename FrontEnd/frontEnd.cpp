@@ -86,7 +86,7 @@ void initialize(string file1, string file2){
 			
 				//checks the users and sets the current user 
 				for(int i = 0; i< 256; i++){
-					if(strcmp((users[i].name)(userName)) == 0){
+					if((users[i].name)==(userName)){
 						currentUser = users[i];
 						currentUser.loginState = true;
 						cout << "Successful login!" << endl;
