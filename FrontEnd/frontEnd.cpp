@@ -61,7 +61,7 @@ void readFile(string file1, string file2){
 				while(getline (ticketStream,line)) {
 					Event temp;
 					temp.eventName = line.substr (0,19);
-					temp.eventName.erase(std::remove(temp.eventName.begin(), temp.eventName.end(), '_'), temp.eventName.end());
+					replace((temp.eventName).begin(), (temp.eventName).end(), '_', ' ');
 					temp.sellerName = line.substr (20,14);
 					temp.sellerName.erase(std::remove(temp.sellerName.begin(), temp.sellerName.end(), '_'), temp.sellerName.end());
 					temp.nTickets = atoi((line.substr (35,3)).c_str());
