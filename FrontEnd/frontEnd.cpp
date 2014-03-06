@@ -19,7 +19,7 @@ static Event tickets [256];
  *	1) file of tickets available for purchase
  *	2) file containing information regarding current user accounts
  */
-void readFile(string file1, string file2){
+void initialize(string file1, string file2){
 
 	string transactionCommand;
 	// Open the two input files
@@ -173,7 +173,7 @@ int main(int argc, char* argv[]){
 	// Check if the user input 3 arguements
 	if(argc > 2 || argc == 1){
 		// read the files using the readFile method
-		readFile(argv[1], argv[2]);
+		initialize(argv[1], argv[2]);
 	}else{
 		// This handles if the user inputs more than tw arguements
 		cout << "Usage: frontEnd [available_tickets_file] [info_file]" << endl;
