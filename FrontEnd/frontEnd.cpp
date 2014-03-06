@@ -52,7 +52,6 @@ void readFile(string file1, string file2){
 					temp.credit = atoi((line.substr (19)).c_str());
 					temp.loginState = false;
 					users[i] = temp;
-					cout << users[i].name << users[i].type << users[i].credit << endl;
 				}
 			}
 			userStream.close();
@@ -69,7 +68,6 @@ void readFile(string file1, string file2){
 					temp.nTickets = atoi((line.substr (35,3)).c_str());
 					temp.ticketPrice = atoi((line.substr (39)).c_str());
 					tickets[x] = temp;
-					cout << tickets[x].eventName << tickets[x].sellerName << tickets[x].nTickets << tickets[x].ticketPrice << endl;
 				}
 			}
 			ticketStream.close();
