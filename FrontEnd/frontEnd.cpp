@@ -34,8 +34,8 @@ void initialize(string file1, string file2){
 		//PARSE FILES
 		if (userStream.is_open()) {
 			//Incrementally adds users to the array line by line
+			int i = 0;
 			while (getline (userStream,line)) {
-				int i = 0;
 				User temp;
 				temp.name = line.substr (0,15);
 				//Removes '_' from Usernames
@@ -44,7 +44,6 @@ void initialize(string file1, string file2){
 				temp.credit = atoi((line.substr (19)).c_str());
 				temp.loginState = false; //Makes sure user isnt set to logged in
 				users[i] = temp;
-				cout << users[i].name << endl;// << users[i].type << users[i].credit << endl;
 				i++;
 			}
 			userStream.close();
@@ -52,8 +51,8 @@ void initialize(string file1, string file2){
 
 		if (ticketStream.is_open()) {
 			//Incrementally adds the ticket event to an array of events
+			int x = 0;
 			while(getline (ticketStream,line)) {
-				int x = 0;
 				Event temp;
 				temp.eventName = line.substr (0,19);
 				//Formats event name to replace '_' with ' '
@@ -64,7 +63,6 @@ void initialize(string file1, string file2){
 				temp.nTickets = atoi((line.substr (35,3)).c_str());
 				temp.ticketPrice = atoi((line.substr (39)).c_str());
 				tickets[x] = temp;
-				//cout << tickets[x].eventName << tickets[x].sellerName << tickets[x].nTickets << tickets[x].ticketPrice << endl;
 				x++;
 			}
 			ticketStream.close();
