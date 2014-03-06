@@ -84,17 +84,21 @@ void readFile(string file1, string file2){
 		// Check to make sure user logs in first
 		if(transactionCommand == "login"){
 			User currentUser;
+			currentUser.name = "";
 			string userName;
 			cout << "Please enter username: ";
 			cin >> userName;
-
+			
+			//checks the users and sets the current user 
 			for(int i = 0; i< 256; i++){
 				if((users[i].name).compare(userName) == 0){
 					currentUser = users[i];
 					currentUser.loginState = true;
 				}
 			}
-			
+			if((currentUser.name).compare("") == 0){
+				cout << "Invalid username."<<endl;
+			}
 
 			while(1){
 				cout << endl;
