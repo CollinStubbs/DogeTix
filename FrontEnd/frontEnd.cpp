@@ -23,22 +23,16 @@ static User users [256];
 static Event tickets [256];
 static User currentUser;
 
-// output to daily transaction file
+// output stream to daily transaction file
 ofstream outToDTF("DailyTransactionFile.txt");
-/*
- * login takes a string as input and checks if it is in the database and if it is 
- * it will set currentUser as that user.
- */
+
+/*****************************METHODS*******************************/
 void login();
 void createUser();
-/*
- *	Reads in 2 files:
- *	- file of tickets available for purchase
- *	- file containing information regarding current user accounts
- * An output file stream is used to output any transactions into DailyTransactionFile.txt
- */
 void initialize(string file1, string file2);
+/*****************************METHODS*******************************/
 
+// Main method
 int main(int argc, char* argv[]){
 	// Check if the user input 3 arguements
 	if(argc > 2 || argc == 1){
@@ -52,8 +46,13 @@ int main(int argc, char* argv[]){
 	return 0;
 }
 
+/*
+ *	Reads in 2 files:
+ *	- file of tickets available for purchase
+ *	- file containing information regarding current user accounts
+ * An output file stream is used to output any transactions into DailyTransactionFile.txt
+ */
 void initialize(string file1, string file2){
-
 	string transactionCommand;
 	// Open the two input files
 	ifstream ticketStream(file1.c_str());
@@ -112,8 +111,12 @@ void initialize(string file1, string file2){
 
 			while(1){
 				cout << endl;
-				cout << "logout:    logout of a user account and end a frontEnd session" << endl;
 
+				/* 
+				 * Display the transaction commands
+				 * if statements handle transaction command permissions
+				 */
+				cout << "logout:    logout of a user account and end a frontEnd session" << endl;
 				if((currentUser.type).compare("AA") == 0) {
 					cout << "create:    create a user account" << endl;
 				}
@@ -123,7 +126,6 @@ void initialize(string file1, string file2){
 
 				cout << "sell:      sell a ticket or tickets to an event" << endl;
 				cout << "buy:       purchase a ticket or tickets to an event" << endl;
-
 				if((currentUser.type).compare("AA") == 0){
 					cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
 				}
@@ -131,12 +133,16 @@ void initialize(string file1, string file2){
 					cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
 				}
 
+				/*
+				 * Prompt the user to enter a command
+				 */
 				cout << endl;
 				cout << "Please enter a command: ";
 				cin >> transactionCommand;
 				
 				if(transactionCommand == "logout"){
 					cout << "Logging out, have a great day!" << endl;
+					outToDTF << transactionCommand << endl;
 					break;
 
 				}else if(transactionCommand == "create"){
@@ -197,6 +203,10 @@ void initialize(string file1, string file2){
 	outToDTF.close();
 } 
 
+/*
+ * login takes a string as input and checks if it is in the database and if it is 
+ * it will set currentUser as that user.
+ */
 void login(){
 	currentUser.name = "";
 	string userName;
@@ -205,7 +215,7 @@ void login(){
 	do {
 		cout << "Please enter username: ";
 		cin >> userName;
-		outToDTF << userName;
+		outToDTF << userName << endl;
 			
 		//checks the users and sets the current user 
 		for(int i = 0; i< 256; i++){
@@ -221,6 +231,11 @@ void login(){
 	} while ((currentUser.name).compare("") == 0);
 }
 
+
+/*
+ * Create a user account 
+ * - must be logged in to admin account
+ */
 /*
 void createUser(){
 	User newUser;
