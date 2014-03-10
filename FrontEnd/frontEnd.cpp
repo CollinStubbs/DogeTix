@@ -275,9 +275,11 @@ void createUser(){
  * - should ask for username
  * - saves this info in daily transaction file
  */
+/*
 void deleteUser(){
 
 }
+*/
 
 /*
  * - sell a ticket or tickets to an event
@@ -285,9 +287,11 @@ void deleteUser(){
  * - should ask for number of tickets for sale
  * - saves this info in the daily transaction file
  */
+/*
 void sellTicket(){
 
 }
+*/
 
 /*
  * - purchase a tickets or ticket to an event
@@ -296,9 +300,11 @@ void sellTicket(){
  * - subtracts the number of tickets from the seller's inventory
  * - saves this info in the daily transaction file
  */
+/*
 void buyTicket(){
 
 }
+*/
 
 /*
  * - issue a credit to a buyer’s account from a seller’s account (privileged transaction)
@@ -306,15 +312,20 @@ void buyTicket(){
  * - transfer the specified amount of credit from the seller’s credit balance to the buyer’s credit balance
  * - save this information in the daily transaction file
  */
+/*
 void refundUser(){
 
 }
+*/
+
 
 /*
  * - in admin mode ask amount of credit to add and the username of the account to which credit is being added
  * - in standard account should ask for the amount of credit
  * - saves this information in a daily transaction file
  */
+/*
 void addCredit(){
 
 }
+*/
