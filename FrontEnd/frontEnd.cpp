@@ -4,11 +4,12 @@
  * Collin Stubbs, 100454604
  * Andrew Gulla, 100395486
  *
- */
-
-/*
- * This is the main front end file which will use 
- * the methods in transactionCommands.cpp
+ * This is the frontEnd of our ticket system, DogeTix.
+ * It uses an output file stream to store all the transactions
+ * made by the user and places it into DailyTransactionFile.txt 
+ * which will be used to send information to the BackEnd of the 
+ * program.
+ *
  */
 #include <iostream>
 #include <fstream>
@@ -19,17 +20,27 @@
 
 using namespace std;
 
+/* Initialize structs that will hold information from the
+ * input files
+ */ 
 static User users [256];
 static Event tickets [256];
+
+// Creat a user struct called current user for login purposes
 static User currentUser;
 
 // output stream to daily transaction file
 ofstream outToDTF("DailyTransactionFile.txt");
 
 /*****************************METHODS*******************************/
+void initialize(string file1, string file2);
 void login();
 void createUser();
-void initialize(string file1, string file2);
+void deleteUser();
+void sellTicket();
+void buyTicket();
+void refundUser();
+void addCredit();
 /*****************************METHODS*******************************/
 
 // Main method
@@ -198,10 +209,11 @@ void initialize(string file1, string file2){
 		}
 
 	}
-
 	// close the output stream
 	outToDTF.close();
 } 
+
+/***********METHOD DEFENITIONS**********/
 
 /*
  * login takes a string as input and checks if it is in the database and if it is 
@@ -257,3 +269,52 @@ void createUser(){
 		newUser.name = nUsername;
 }
 */
+
+/*
+ * - cancel any outstanding tickets for purchase or sale and remove the user account
+ * - should ask for username
+ * - saves this info in daily transaction file
+ */
+void deleteUser(){
+
+}
+
+/*
+ * - sell a ticket or tickets to an event
+ * - should ask for sale price for the tickets in dollars
+ * - should ask for number of tickets for sale
+ * - saves this info in the daily transaction file
+ */
+void sellTicket(){
+
+}
+
+/*
+ * - purchase a tickets or ticket to an event
+ * - asks for: event title, number of tickets and the seller’s username
+ * - display the cost per ticket and the total cost to the user and ask for confirmation in the form of yes or no
+ * - subtracts the number of tickets from the seller's inventory
+ * - saves this info in the daily transaction file
+ */
+void buyTicket(){
+
+}
+
+/*
+ * - issue a credit to a buyer’s account from a seller’s account (privileged transaction)
+ * - ask for the buyer’s username, the seller’s username and the amount of credit to transfer
+ * - transfer the specified amount of credit from the seller’s credit balance to the buyer’s credit balance
+ * - save this information in the daily transaction file
+ */
+void refundUser(){
+
+}
+
+/*
+ * - in admin mode ask amount of credit to add and the username of the account to which credit is being added
+ * - in standard account should ask for the amount of credit
+ * - saves this information in a daily transaction file
+ */
+void addCredit(){
+
+}
