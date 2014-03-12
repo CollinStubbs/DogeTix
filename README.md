@@ -18,16 +18,13 @@ Back End:
 
 How to use:
 
-      $ make FrontEnd
+Run the makefile and the input files will automatically be passed as command line arguements.
 
-How the Front End works:
-- transaction commands are created in transactionCommands.cpp
-- frontEnd.cpp handles all the front end activities through the use of the commands in transactionCommands.cpp
+      $ make 
 
-Updates as of today:
-- implemented frontEnd.cpp and transactionCommands.cpp
-- still need to determine how the files should be structured and parsed + need to implement some test commands
+Status as of today:
 - Edited makefile for easier automation
+- Created separate methods for what was previously on initialized() 
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
