@@ -1,11 +1,19 @@
-# A simple make file for our front end
-FrontEnd : FrontEnd.class
+BINARY=DTFE
+SOURCES := $(wildcard *.cpp)
+OBJECTS := $(SOURCES:.cpp=.o)
+CPP=g++
+CPPFLAGS=-O0
+LDFLAGS=
 
-FrontEnd.class : 
-	g++ -o DTFE $ frontEnd.cpp transactionCommands.cpp
-	$ ./DTFE tickets.txt user_info.txt
-	rm -f $ DTFE
+all: $(SOURCES) $(BINARY)
+
+$(BINARY): $(OBJECTS) 
+	$(CPP) $(OBJECTS) $(LDFLAGS) -o $@
+
+.cpp.o:
+	$(CPP) -g -c $(CPPFLAGS) $< -o $@
+
+.PHONY: clean
 
 clean:
-	rm -f % *.out
-	rm -f % DTFE
+	rm -f $(OBJECTS) $(BINARY)
