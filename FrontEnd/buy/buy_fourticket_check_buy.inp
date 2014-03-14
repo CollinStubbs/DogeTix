@@ -1,0 +1,4 @@
+login
+buyer
+buy "MGMT" 5 "selleruser1"
+logout

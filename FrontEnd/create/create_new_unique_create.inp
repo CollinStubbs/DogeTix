@@ -1,0 +1,9 @@
+login
+admin
+create
+username "Andrew"
+type "admin"
+create
+username "Andrew"
+type "admin"
+logout
