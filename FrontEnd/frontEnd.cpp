@@ -108,17 +108,19 @@ void initialize(string file1, string file2){
         
         cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
         cout << "Please type 'login' to start a Front End session" << endl;
-        cin >> transactionCommand;
-        outToDTF << transactionCommand << endl;
+        while(cin >> transactionCommand){
+            outToDTF << transactionCommand << endl;
 
-        // Check to make sure user logs in first
-        if(transactionCommand == "login"){
-            //calls the login function
-            login();
-            transactionCommands(transactionCommand);
-        }else{
-        	cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
+            // Check to make sure user logs in first
+            if(transactionCommand == "login"){
+                //calls the login function
+                login();
+                transactionCommands(transactionCommand);
+            }else{
+                cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
+            }
         }
+        
 
     }
     // close the output stream
@@ -128,7 +130,7 @@ void initialize(string file1, string file2){
 /***********METHOD DEFENITIONS**********/
 
 void transactionCommands(string transactionCommand){
-    while(1){
+    
         cout << endl;
         /* 
          * Display the transaction commands
@@ -141,7 +143,6 @@ void transactionCommands(string transactionCommand){
         if((currentUser.type).compare("AA") == 0){
             cout << "delete:    delete a user account" << endl;
         }
-
         cout << "sell:      sell a ticket or tickets to an event" << endl;
         cout << "buy:       purchase a ticket or tickets to an event" << endl;
         if((currentUser.type).compare("AA") == 0){
@@ -160,7 +161,6 @@ void transactionCommands(string transactionCommand){
         if(transactionCommand == "logout"){
             cout << "Logging out, have a great day!" << endl;
             outToDTF << transactionCommand << endl;
-            break;
 
         }else if(transactionCommand == "create"){
             if((currentUser.type).compare("AA") == 0){
@@ -208,7 +208,7 @@ void transactionCommands(string transactionCommand){
         }else{
             cout << "Invalid command, please enter another command" << endl;
         }
-    }	
+    	
 
 }
 
