@@ -18,13 +18,13 @@ Back End:
 
 How to use:
 
-Run the makefile and the input files will automatically be passed as command line arguements.
+Run the makefile
 
       $ make 
 
 Status as of today:
-- Edited makefile for easier automation
-- Created separate methods for what was previously on initialized() 
+- created frontEndtest.sh that should be used to run all frontEnd tests
+- the login test scripts can be found under login_testscripts directory
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
