@@ -1,0 +1,12 @@
+Welcome to the ticket system!
+Enter a command:
+Login username:
+Login Complete!
+Enter a command:
+Enter username to delete:
+Cannot delete username! Please enter another username that is not logged in
+Enter a command:
+Enter username to delete:
+Deleted user.
+Enter a command:
+Logout Complete!
