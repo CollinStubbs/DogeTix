@@ -24,6 +24,7 @@ static User users [256]; // A struct array to hold user info
 static Event tickets [256]; // A struct array to hold ticket info
 // Create a user struct called current user for login purposes
 static User currentUser;
+string transactionCommand;
 // output stream to daily transaction file
 ofstream outToDTF("DailyTransactionFile.txt");
 
@@ -31,6 +32,7 @@ ofstream outToDTF("DailyTransactionFile.txt");
 void initialize(string file1, string file2);
 void transactionCommands(string transactionCommand);
 void login();
+void logout();
 void createUser();
 void deleteUser();
 void sellTicket();
@@ -55,7 +57,6 @@ int main(int argc, char* argv[]){
 /*******************************************************************/
 
 void initialize(string file1, string file2){
-    string transactionCommand;
     // Open the two input files
     ifstream ticketStream(file1.c_str());
     ifstream userStream(file2.c_str());
@@ -84,7 +85,7 @@ void initialize(string file1, string file2){
             }
             userStream.close();
         }
-         /*
+        /*
          * Parse the ticket info file
          */
         if (ticketStream.is_open()) {
@@ -105,23 +106,7 @@ void initialize(string file1, string file2){
             }
             ticketStream.close();
         }
-        
-        cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
-        cout << "Please type 'login' to start a Front End session" << endl;
-        while(cin >> transactionCommand){
-            outToDTF << transactionCommand << endl;
-
-            // Check to make sure user logs in first
-            if(transactionCommand == "login"){
-                //calls the login function
-                login();
-                transactionCommands(transactionCommand);
-            }else{
-                cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
-            }
-        }
-        
-
+        login();
     }
     // close the output stream
     outToDTF.close();
@@ -130,85 +115,87 @@ void initialize(string file1, string file2){
 /***********METHOD DEFENITIONS**********/
 
 void transactionCommands(string transactionCommand){
-    
-        cout << endl;
-        /* 
-         * Display the transaction commands
-         * if statements handle transaction command permissions
-         */
-        cout << "logout:    logout of a user account and end a frontEnd session" << endl;
-        if((currentUser.type).compare("AA") == 0) {
-            cout << "create:    create a user account" << endl;
-        }
-        if((currentUser.type).compare("AA") == 0){
-            cout << "delete:    delete a user account" << endl;
-        }
-        cout << "sell:      sell a ticket or tickets to an event" << endl;
-        cout << "buy:       purchase a ticket or tickets to an event" << endl;
-        if((currentUser.type).compare("AA") == 0){
-            cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
-        }
-        if((currentUser.type).compare("AA") == 0){
-            cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
-        }
-        /*
-         * Prompt the user to enter a command
-         */
-        cout << endl;
-        cout << "Please enter a command: ";
-        cin >> transactionCommand;
 
-        if(transactionCommand == "logout"){
-            cout << "Logging out, have a great day!" << endl;
-            outToDTF << transactionCommand << endl;
+    cout << endl;
+    /* 
+     * Display the transaction commands
+     * if statements handle transaction command permissions
+     */
+    cout << "logout:    logout of a user account and end a frontEnd session" << endl;
+    if((currentUser.type).compare("AA") == 0) {
+        cout << "create:    create a user account" << endl;
+    }
+    if((currentUser.type).compare("AA") == 0){
+        cout << "delete:    delete a user account" << endl;
+    }
+    cout << "sell:      sell a ticket or tickets to an event" << endl;
+    cout << "buy:       purchase a ticket or tickets to an event" << endl;
+    if((currentUser.type).compare("AA") == 0){
+        cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
+    }
+    if((currentUser.type).compare("AA") == 0){
+        cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
+    }
+    /*
+     * Prompt the user to enter a command
+     */
+    cout << endl;
+    cout << "Please enter a command: ";
+    cin >> transactionCommand;
 
-        }else if(transactionCommand == "create"){
-            if((currentUser.type).compare("AA") == 0){
-                cout << "You have selected create" << endl;
-                createUser();
-            }
-            else{
-                cout << "This is a privileged transaction that requires an Admin account."<<endl;
-            }
-        }else if(transactionCommand == "delete"){
-            if((currentUser.type).compare("AA") == 0){
-                cout << "You have selected Delete" << endl;
-            }
-            else{
-                cout << "This is a privileged transaction that requires an Admin account."<<endl;
-            }
-        }else if(transactionCommand == "sell"){
-            if((currentUser.type).compare("BS") == 0){
-                cout<<"You are not allowed to access this function with a buy account."<<endl;
-            }
-            else{
-                cout << "You have selected sell" << endl;
-            }
-        }else if(transactionCommand == "buy"){
-            if((currentUser.type).compare("SS") == 0){
-                cout<<"You are not allowed to access this function with a sell account."<<endl;
-            }
-            else{
-                cout << "You have selected buy" << endl;
-            }
-        }else if(transactionCommand == "refund"){
-            if((currentUser.type).compare("AA") == 0){
-                cout << "You have selected refund" << endl;
-            }
-            else{
-                cout << "This is a privileged transaction that requires an Admin account."<<endl;
-            }
-        }else if(transactionCommand == "addCredit"){
-            if((currentUser.type).compare("AA") == 0){
-                cout << "You have selected addCredit" << endl;
-            }
-            else{
-                cout << "This is a privileged transaction that requires an Admin account."<<endl;
-            }
-        }else{
-            cout << "Invalid command, please enter another command" << endl;
+    if(transactionCommand == "logout"){
+        cout << "Logging out, have a great day!" << endl;
+        outToDTF << transactionCommand << endl;
+        logout();
+       
+
+    }else if(transactionCommand == "create"){
+        if((currentUser.type).compare("AA") == 0){
+            cout << "You have selected create" << endl;
+            createUser();
         }
-    	
+        else{
+            cout << "This is a privileged transaction that requires an Admin account."<<endl;
+        }
+    }else if(transactionCommand == "delete"){
+        if((currentUser.type).compare("AA") == 0){
+            cout << "You have selected Delete" << endl;
+        }
+        else{
+            cout << "This is a privileged transaction that requires an Admin account."<<endl;
+        }
+    }else if(transactionCommand == "sell"){
+        if((currentUser.type).compare("BS") == 0){
+            cout<<"You are not allowed to access this function with a buy account."<<endl;
+        }
+        else{
+            cout << "You have selected sell" << endl;
+        }
+    }else if(transactionCommand == "buy"){
+        if((currentUser.type).compare("SS") == 0){
+            cout<<"You are not allowed to access this function with a sell account."<<endl;
+        }
+        else{
+            cout << "You have selected buy" << endl;
+        }
+    }else if(transactionCommand == "refund"){
+        if((currentUser.type).compare("AA") == 0){
+            cout << "You have selected refund" << endl;
+        }
+        else{
+            cout << "This is a privileged transaction that requires an Admin account."<<endl;
+        }
+    }else if(transactionCommand == "addCredit"){
+        if((currentUser.type).compare("AA") == 0){
+            cout << "You have selected addCredit" << endl;
+        }
+        else{
+            cout << "This is a privileged transaction that requires an Admin account."<<endl;
+        }
+    }else{
+        cout << "Invalid command, please enter another command" << endl;
+    }
+
 
 }
 
@@ -217,27 +204,44 @@ void transactionCommands(string transactionCommand){
  * it will set currentUser as that user.
  */
 void login(){
-    currentUser.name = "";
-    string userName;
+    cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
+    cout << "Please type 'login' to start a Front End session" << endl;
+    while(cin >> transactionCommand){
+        outToDTF << transactionCommand << endl;
 
-    // LOGIN			
-    do {
-        cout << "Please enter username: ";
-        cin >> userName;
-        outToDTF << userName << endl;
+        // Check to make sure user logs in first
+        if(transactionCommand == "login"){
+            //calls the login function
+            currentUser.name = "";
+            string userName;
 
-        //checks the users and sets the current user 
-        for(int i = 0; i< 256; i++){
-            if((users[i].name).compare(userName) == 0){
-                currentUser = users[i];
-                currentUser.loginState = true;
-                cout << "Successful login!" << endl;
-            }
+            // LOGIN            
+            do {
+                cout << "Please enter username: ";
+                cin >> userName;
+                outToDTF << userName << endl;
+
+                //checks the users and sets the current user 
+                for(int i = 0; i< 256; i++){
+                    if((users[i].name).compare(userName) == 0){
+                        currentUser = users[i];
+                        currentUser.loginState = true;
+                        cout << "Successful login!" << endl;
+                    }
+                }
+                if((currentUser.name).compare("") == 0){
+                    cout << "Invalid username."<<endl;
+                }
+            }while ((currentUser.name).compare("") == 0);
+
+            transactionCommands(transactionCommand);
+        }else{
+            cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
         }
-        if((currentUser.name).compare("") == 0){
-            cout << "Invalid username."<<endl;
-        }
-    } while ((currentUser.name).compare("") == 0);
+    }
+}
+void logout(){
+    login();
 }
 /*
  * Create a user account 
