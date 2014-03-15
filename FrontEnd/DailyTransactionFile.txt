@@ -1,4 +1,4 @@
 login
 COLLINSTUBBSSSS
 logout
-login
+sell
