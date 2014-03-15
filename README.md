@@ -24,7 +24,8 @@ Run the makefile
 
 Status as of today:
 - created frontEndtest.sh that should be used to run all frontEnd tests
-- the login test scripts can be found under login_testscripts directory
+- program doesnt end after user logs out so that another user is able to log in
+- merged logout_testscripts to frontEndtest
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
