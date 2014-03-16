@@ -21,11 +21,13 @@ How to use:
 Run the makefile
 
       $ make 
+      $ ./DTFE tickets.txt user_info.txt
 
 Status as of today:
 - created frontEndtest.sh that should be used to run all frontEnd tests
 - program doesnt end after user logs out so that another user is able to log in
-- merged logout_testscripts to frontEndtest
+- created a directory and expected output files to be used to compare with actual output files
+- piped console output to text files in the output directory
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
