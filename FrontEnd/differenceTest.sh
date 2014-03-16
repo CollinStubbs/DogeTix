@@ -1,1 +1,0 @@
-for f in /expectedOutputs/expected_login_test_outputs/*.txt ; do echo "Comparison test for $f"; diff /expectedOutputs/expected_login_test_outputs/$f /outputs/actual_login_test_outputs/$f; done

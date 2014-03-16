@@ -33,3 +33,7 @@ echo "RUNNING login_valid TO GENERATE ERROR WHEN LOGOUT IS FIRST COMMAND"
 clear
 echo "RUNNING login_no_transactions TO TEST THAT NO TRANSACTIONS ARE ACCEPTED AFTER logout"
 ./inputs/logout_testscripts/logout_no_transactions.sh > ./outputs/actual_logout_test_outputs/logout_no_transactions.txt
+
+clear 
+echo "RUNNING COMPARISONS TO CHECK EXPECTED OUTPUT VS ACTUAL OUTPUT"
+for f in /expectedOutputs/expected_login_test_outputs/*.txt ; do echo "Comparison test for $f"; diff /expectedOutputs/expected_login_test_outputs/$f /outputs/actual_login_test_outputs/$f; done
