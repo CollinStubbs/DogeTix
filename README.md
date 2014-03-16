@@ -28,6 +28,7 @@ Status as of today:
 - program doesnt end after user logs out so that another user is able to log in
 - created a directory and expected output files to be used to compare with actual output files
 - piped console output to text files in the output directory
+- added a script for comparisons of actual and expected output files
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
