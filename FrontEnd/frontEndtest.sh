@@ -33,3 +33,7 @@ echo "RUNNING login_valid TO GENERATE ERROR WHEN LOGOUT IS FIRST COMMAND"
 clear
 echo "RUNNING login_no_transactions TO TEST THAT NO TRANSACTIONS ARE ACCEPTED AFTER logout"
 ./inputs/logout_testscripts/logout_no_transactions.sh > ./outputs/actual_logout_test_outputs/logout_no_transactions.txt
+
+clear
+echo "RUNNING logout_successful TO TEST THAT WE CAN HAVE A VALID LOGOUT"
+./inputs/logout_testscripts/logout_successful.sh > ./outputs/actual_logout_test_outputs/logout_successful.txt
