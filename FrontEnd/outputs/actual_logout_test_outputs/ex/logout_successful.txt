@@ -14,3 +14,6 @@ refund:    issue a credit to a buyer’s account from a seller’s account
 addCredit: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o transactionCommands.o DTFE
