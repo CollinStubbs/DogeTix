@@ -13,5 +13,5 @@ buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
 addCredit: add credit into the system for the purchase of accounts
 
-Please enter a command: Invalid command, please enter another command
+Please enter a command: You have selected create
 rm -f frontEnd.o transactionCommands.o DTFE
