@@ -22,6 +22,11 @@ Run the makefile
 
       $ make 
       $ ./DTFE tickets.txt user_info.txt
+      
+How to test properly:
+
+      - Run the frontEndtest.sh script
+      - Go to the output folders and run the comparison.sh scripts
 
 Status as of today:
 - created frontEndtest.sh that should be used to run all frontEnd tests
