@@ -4,6 +4,10 @@
 echo $'\n'
 echo "**********RUNNING ALL FRONT END TESTS**********"
 echo $'\n'
+# make all scripts executable
+chmod +x inputs/login_testscripts/*.sh
+chmod +x inputs/logout_testscripts/*.sh
+
 # test login test cases
 echo "RUNNING login_first_transaction TO GENERATE A SUCCESSFUL LOGIN"
 ./inputs/login_testscripts/login_first_transaction.sh > ./outputs/actual_login_test_outputs/login_first_transaction.txt
