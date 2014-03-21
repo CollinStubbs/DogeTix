@@ -1,0 +1,13 @@
+g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
+g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
+g++ frontEnd.o transactionCommands.o  -o DTFE
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+Please enter username: Successful login!
+
+logout:    logout of a user account and end a frontEnd session
+sell:      sell a ticket or tickets to an event
+buy:       purchase a ticket or tickets to an event
+
+Please enter a command: This is a privileged transaction that requires an Admin account.
+rm -f frontEnd.o transactionCommands.o DTFE

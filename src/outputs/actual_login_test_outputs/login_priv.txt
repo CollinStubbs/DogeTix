@@ -1,0 +1,17 @@
+g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
+g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
+g++ frontEnd.o transactionCommands.o  -o DTFE
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+Please enter username: Successful login!
+
+logout:    logout of a user account and end a frontEnd session
+create:    create a user account
+delete:    delete a user account
+sell:      sell a ticket or tickets to an event
+buy:       purchase a ticket or tickets to an event
+refund:    issue a credit to a buyer’s account from a seller’s account
+addCredit: add credit into the system for the purchase of accounts
+
+Please enter a command: You have selected create
+rm -f frontEnd.o transactionCommands.o DTFE

@@ -1,0 +1,1 @@
+for i in *.txt; do echo "COMPARISON TEST FOR $i" ; diff ex/$i $i; done
