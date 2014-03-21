@@ -1,9 +1,0 @@
-RUNNING login_first_transaction TO GENERATE AN ERROR
-g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
-<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
-Please type 'login' to start a Front End session
- Cannot perform create You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
-
