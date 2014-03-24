@@ -42,3 +42,14 @@ clear
 echo "RUNNING logout_successful TO TEST THAT WE CAN HAVE A VALID LOGOUT"
 ./inputs/logout_testscripts/logout_successful.sh > ./outputs/actual_logout_test_outputs/logout_successful.txt
 
+diff outputs/actual_logout_test_outputs/logout_no_transactions.txt expectedOutputs/expected_logout_test_outputs/logout_no_transactions.txt
+diff outputs/actual_logout_test_outputs/logout_valid.txt expectedOutputs/expected_logout_test_outputs/logout_valid.txt
+diff outputs/actual_logout_test_outputs/logout_successful.txt expectedOutputs/expected_logout_test_outputs/logout_successful.txt
+
+diff outputs/actual_login_test_outputs/login_first_transaction_error.txt expectedOutputs/expected_login_test_outputs/login_first_transaction_error.txt
+diff outputs/actual_login_test_outputs/login_first_transaction.txt expectedOutputs/expected_login_test_outputs/login_first_transaction.txt
+diff outputs/actual_login_test_outputs/login_priv.txt expectedOutputs/expected_login_test_outputs/login_priv.txt
+diff outputs/actual_login_test_outputs/login_unpriv.txt expectedOutputs/expected_login_test_outputs/login_unpriv.txt
+diff outputs/actual_login_test_outputs/login_sublogin.txt expectedOutputs/expected_login_test_outputs/login_sublogin.txt
+
+

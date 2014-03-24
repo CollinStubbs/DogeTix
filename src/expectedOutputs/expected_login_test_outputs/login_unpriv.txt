@@ -1,4 +1,3 @@
-RUNNING login_unpriv TO PERFORM PRIVILAGED TRANSACTION ON UNPRIVILAGED USERNAME
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
 g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
 g++ frontEnd.o transactionCommands.o  -o DTFE
