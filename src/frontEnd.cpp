@@ -153,7 +153,7 @@ void transactionCommands(string transactionCommand){
     }else if(transactionCommand == "create"){
         if((currentUser.type).compare("AA") == 0){
             cout << "You have selected create" << endl;
-
+            createUser();
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
@@ -253,27 +253,64 @@ void logout(){
  * Create a user account 
  * - must be logged in to admin account
  */
-/*
-   void createUser(){
-   User newUser;
-   string nUsername;
-   bool accepted = 0;
-   do {
-   cout << "Please enter a UNIQUE new username: ";
-   cin >> nUsername;
+void createUser(){
+    string userName; // username
+    string newUserName; // username with spaces if less than 15 chars
+    string checkString;
+    string line;
+    int offset;
 
-   for (int i=0; i<=256; i++) {
-   if((users[i].name)==(nUsername) || nUsername.length() > 15){
-   cout << "Please pick a UNIQUE username" <<endl;
-   }
-   else{
-   accepted = 1;
-   }
-   }
-   } while (accepted == 0);
-   newUser.name = nUsername;
-   }
-   */
+    cout<<"Please enter a username to create:";
+    cin >> userName;
+
+    // Append spaces to userName if it is less than 15 characters long
+    if(userName.length() != 15){
+        // determine the amount of spaces needed
+        int spaceNum = 15-userName.length();
+        // create a character array to hold spaces
+        char space[spaceNum];
+        for(int i=0; i<=spaceNum; i++){
+            space[i] = '_';
+        }
+        // convert char array to string
+        string spaceString(space);
+        //delete[] space;   
+        // append spaces to username 
+        newUserName = userName.append(spaceString);
+        // checkstring == username+spaces if less than 15 characters
+        checkString = "create "+newUserName;
+    }else{
+        // checkstring == username if equal to 15 characters
+        checkString = "create "+userName;
+    }   
+    // Check if the current user name is trying to be deleted
+    if(currentUser.name.compare(userName) == 0){
+        cout << "Cannot create current user" << endl;
+        createUser();
+    }else{
+        // iterate through userAccounts
+        for(int i = 0; i< 256; i++){
+            // check if username exists in userAccounts
+            if((users[i].name).compare(userName) == 0){
+                while(!readDTF.eof()){
+                    getline(readDTF, line);
+                    // Check the daily transaction file if the user has been deleted already
+                    if((offset = line.find(checkString, 0)) != string::npos){
+                        cout << "User has already been previously created" << endl;
+                        // call deleteUser() again
+                        deleteUser();
+                    }
+                    else{
+                        // Output to console
+                        // FOR SOME REASON IT PRINTS IT TWICE
+                        cout << "created "+userName << endl;
+                        outToDTF <<  checkString << endl;
+                    }
+                }
+            }
+        }   
+    }
+}
 
 /*
  * - cancel any outstanding tickets for purchase or sale and remove the user account
@@ -289,7 +326,7 @@ void deleteUser(){
 
     cout<<"Please enter a username to delete:";
     cin >> userName;
-    checkString = "delete" + userName;
+    checkString = "delete "+userName;
 
     // Check if the current user name is trying to be deleted
     if(currentUser.name.compare(userName) == 0){
@@ -310,6 +347,7 @@ void deleteUser(){
                     }
                     else{
                         // Output to console
+                        // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "deleted "+userName << endl;
                         outToDTF <<  checkString << endl;
                     }
@@ -317,7 +355,6 @@ void deleteUser(){
             }
         }   
     }
-
 }
 
 
