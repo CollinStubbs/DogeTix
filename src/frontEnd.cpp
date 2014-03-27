@@ -298,7 +298,7 @@ void createUser(){
                     if((offset = line.find(checkString, 0)) != string::npos){
                         cout << "User has already been previously created" << endl;
                         // call deleteUser() again
-                        deleteUser();
+                        createUser();
                     }
                     else{
                         // Output to console
@@ -323,6 +323,7 @@ void deleteUser(){
     string checkString;
     string line;
     int offset;
+    string transactionCommand;
 
     cout<<"Please enter a username to delete:";
     cin >> userName;
@@ -350,6 +351,7 @@ void deleteUser(){
                         // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "deleted "+userName << endl;
                         outToDTF <<  checkString << endl;
+                        transactionCommands(transactionCommand);
                     }
                 }
             }
