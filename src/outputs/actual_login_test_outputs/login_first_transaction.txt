@@ -1,4 +1,6 @@
-make: Nothing to be done for `all'.
+g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
+g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
+g++ frontEnd.o transactionCommands.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!

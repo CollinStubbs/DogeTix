@@ -27,6 +27,7 @@ static User currentUser;
 string transactionCommand;
 // output stream to daily transaction file
 ofstream outToDTF("DailyTransactionFile.txt");
+ifstream readDTF("DailyTransactionFile.txt");
 
 // Method defenitions
 void initialize(string file1, string file2);
@@ -47,6 +48,8 @@ int main(int argc, char* argv[]){
     if(argc > 2 || argc == 1){
         // read the files using the readFile method
         initialize(argv[1], argv[2]);
+        // close the output stream
+        outToDTF.close();
     }else{
         // This handles if the user inputs more than two arguements
         cout << "Usage: frontEnd [available_tickets_file] [info_file]" << endl;
@@ -108,8 +111,6 @@ void initialize(string file1, string file2){
         }
         login();
     }
-    // close the output stream
-    outToDTF.close();
 } 
 
 /***********METHOD DEFENITIONS**********/
@@ -147,19 +148,20 @@ void transactionCommands(string transactionCommand){
         cout << "Logging out, have a great day!" << endl;
         outToDTF << transactionCommand << endl;
         logout();
-       
+
 
     }else if(transactionCommand == "create"){
         if((currentUser.type).compare("AA") == 0){
             cout << "You have selected create" << endl;
-            createUser();
+
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
         }
     }else if(transactionCommand == "delete"){
         if((currentUser.type).compare("AA") == 0){
-            cout << "You have selected Delete" << endl;
+            cout << "You have selected delete" << endl;
+            deleteUser();
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
@@ -211,7 +213,7 @@ void login(){
 
         // Check to make sure user logs in first
         if(transactionCommand == "login"){
-            //calls the login function
+
             currentUser.name = "";
             string userName;
 
@@ -237,9 +239,13 @@ void login(){
             transactionCommands(transactionCommand);
         }else{
             cout << " Cannot perform "+transactionCommand+" You must log in to a user account" << endl;
+            login();
         }
     }
 }
+/*
+ * Loop back to login()
+ */
 void logout(){
     login();
 }
@@ -274,11 +280,46 @@ void logout(){
  * - should ask for username
  * - saves this info in daily transaction file
  */
-/*
-   void deleteUser(){
+void deleteUser(){
 
-   }
-   */
+    string userName;
+    string checkString;
+    string line;
+    int offset;
+
+    cout<<"Please enter a username to delete:";
+    cin >> userName;
+    checkString = "delete" + userName;
+
+    // Check if the current user name is trying to be deleted
+    if(currentUser.name.compare(userName) == 0){
+        cout << "Cannot delete current user" << endl;
+        deleteUser();
+    }else{
+        // iterate through userAccounts
+        for(int i = 0; i< 256; i++){
+            // check if username exists in userAccounts
+            if((users[i].name).compare(userName) == 0){
+                while(!readDTF.eof()){
+                    getline(readDTF, line);
+                    // Check the daily transaction file if the user has been deleted already
+                    if((offset = line.find(checkString, 0)) != string::npos){
+                        cout << "User has already been previously deleted" << endl;
+                        // call deleteUser() again
+                        deleteUser();
+                    }
+                    else{
+                        // Output to console
+                        cout << "deleted "+userName << endl;
+                        outToDTF <<  checkString << endl;
+                    }
+                }
+            }
+        }   
+    }
+
+}
+
 
 /*
  * - sell a ticket or tickets to an event

@@ -28,7 +28,6 @@ clear
 echo "RUNNING login_priv TO PERFORM PRIVILAGED TRANSACTION ON PRIVILAGED USERNAME"
 ./inputs/login_testscripts/login_priv.sh > ./outputs/actual_login_test_outputs/login_priv.txt
 
-
 # Test logout test cases
 clear
 echo "RUNNING login_valid TO GENERATE ERROR WHEN LOGOUT IS FIRST COMMAND"
@@ -42,10 +41,12 @@ clear
 echo "RUNNING logout_successful TO TEST THAT WE CAN HAVE A VALID LOGOUT"
 ./inputs/logout_testscripts/logout_successful.sh > ./outputs/actual_logout_test_outputs/logout_successful.txt
 
+#compare logout 
 diff outputs/actual_logout_test_outputs/logout_no_transactions.txt expectedOutputs/expected_logout_test_outputs/logout_no_transactions.txt
 diff outputs/actual_logout_test_outputs/logout_valid.txt expectedOutputs/expected_logout_test_outputs/logout_valid.txt
 diff outputs/actual_logout_test_outputs/logout_successful.txt expectedOutputs/expected_logout_test_outputs/logout_successful.txt
 
+#compare login
 diff outputs/actual_login_test_outputs/login_first_transaction_error.txt expectedOutputs/expected_login_test_outputs/login_first_transaction_error.txt
 diff outputs/actual_login_test_outputs/login_first_transaction.txt expectedOutputs/expected_login_test_outputs/login_first_transaction.txt
 diff outputs/actual_login_test_outputs/login_priv.txt expectedOutputs/expected_login_test_outputs/login_priv.txt
