@@ -45,7 +45,6 @@ public class DTFMerger{
          System.exit(0);
       }
       
-      
       //merge the files into mergedDTF string array 
       return (String[])mergedDTF.toArray();
    }
