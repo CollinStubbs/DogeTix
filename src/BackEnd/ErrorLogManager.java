@@ -23,11 +23,13 @@ public class ErrorLogManager{
       this.transaction = transaction; 
       writeToLog2();
    }
+   //writes to the terminal in the ase of a fatal error
    public static void writeToLog(){
       //print to console here with specific messages
       System.out.println("ERROR: type = "+type+
          " description: "+ desc);
    }
+   //writes to the terminal in the case of a constraint error
    public static void writeToLog2(){
       //print to console here with specific messages
       System.out.println("ERROR: type = "+type+

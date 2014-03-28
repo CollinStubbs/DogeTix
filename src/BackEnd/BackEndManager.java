@@ -1,6 +1,11 @@
 package BackEnd;
-//used to manage the BackEnd
-public class BackEndManager{
+/****************************************************
+   This class is used to handle all back end components.
+   It is the top level of all backed end instances.
+   From this class: the dtf files are merged, all files are read in,
+   and the new files are created.
+******************************************************/
+   public class BackEndManager{
    static private String[] uafTemp;
    static private String[] atfTemp;
    static private String[] dtfTemp;
@@ -22,18 +27,22 @@ public class BackEndManager{
       }
      
    }
+   //creates a DTFMerger instance and uses it to merge the DTF's which are then stored in dtfTemp
    public static boolean mergeDTF(){
       
       DTFMerger merge = new DTFMerger();
       dtfTemp = merge.mergeDTF();
       return false;
    }
+   //reads in the data from the user account file and stores it in uafTemp
    public static boolean readInUserAccountFile(){
       return false;
    }
+   //reads in the data from the available ticket files and stores it in atfTemp
    public static boolean readInAvailableTicketsFile(){
       return false;
    }
+   //creates an instance of OldToNewManager and uses it to create the new files
    public static boolean updateFiles(){
       return false;
    }
