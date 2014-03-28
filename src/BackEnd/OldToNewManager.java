@@ -6,12 +6,12 @@ public class OldToNewManager{
    String[] mergedDTF;
    String[] newUAF;
    String[] newATF;
+   //Constructor
    public OldToNewManager(String[] userAccountFileHolder, String[] availableTicketHolder, String[] mergedDTF){
       this.userAccountFileHolder = userAccountFileHolder;
-      this.availableTicketHolder = AvailableTicketHolder;
+      this.availableTicketHolder = availableTicketHolder;
       this.mergedDTF = mergedDTF;   
       if(!applyMergedDTF()){
-         ErrorLog log = new ErrorLog();
       }
    }
    public static boolean applyMergedDTF(){ 
@@ -23,11 +23,19 @@ public class OldToNewManager{
    public static boolean writeToNewATFFile(){
       return false;
    }
-   public static boolean writeError(){
+   public static boolean writeError(String msg){
+      //ErrorLogManager log = new ErrorLogManager);
       return false;
    }
-   public static bool checkTicketNum(int num){
+   /*Checks for negative ticknum constraing*/
+   public static boolean checkTicketNum(int num){
       return (num>=0)? true : false;
+   }
+   /*Checks for the new user username constraint*/
+   public static boolean newUserCheck(){
+   //if name does not match any names in the user list 
+   //return true else
+      return false;
    }
 
 }

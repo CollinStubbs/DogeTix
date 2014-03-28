@@ -2,11 +2,12 @@ package BackEnd;
 //Used for merging the actual files
 public class DTFMerger{
 
-   String[] mergedDTF;
-   public DTFMerger(String){
+   static String[] mergedDTF;
+   public DTFMerger(){
       mergeDTF();
    }
-   public static boolean mergeDTF(){
+   public static String[] mergeDTF(){
       //merge the files into mergedDTF string array
+      return mergedDTF;
    }
 }
