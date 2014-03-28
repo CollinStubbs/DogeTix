@@ -172,6 +172,7 @@ void transactionCommands(string transactionCommand){
         }
         else{
             cout << "You have selected sell" << endl;
+            sellTicket();
         }
     }else if(transactionCommand == "buy"){
         if((currentUser.type).compare("SS") == 0){
@@ -179,10 +180,12 @@ void transactionCommands(string transactionCommand){
         }
         else{
             cout << "You have selected buy" << endl;
+            buyTicket();
         }
     }else if(transactionCommand == "refund"){
         if((currentUser.type).compare("AA") == 0){
             cout << "You have selected refund" << endl;
+            refundUser();
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
@@ -190,6 +193,7 @@ void transactionCommands(string transactionCommand){
     }else if(transactionCommand == "addCredit"){
         if((currentUser.type).compare("AA") == 0){
             cout << "You have selected addCredit" << endl;
+            addCredit();
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
@@ -209,7 +213,7 @@ void login(){
     cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
     cout << "Please type 'login' to start a Front End session" << endl;
     while(cin >> transactionCommand){
-        outToDTF << transactionCommand << endl;
+        outToDTF << transactionCommand + " ";
 
         // Check to make sure user logs in first
         if(transactionCommand == "login"){
@@ -243,17 +247,20 @@ void login(){
         }
     }
 }
+
 /*
  * Loop back to login()
  */
 void logout(){
     login();
 }
+
 /*
  * Create a user account 
  * - must be logged in to admin account
  */
 void createUser(){
+
     string userName; // username
     string newUserName; // username with spaces if less than 15 chars
     string checkString;
@@ -262,54 +269,37 @@ void createUser(){
 
     cout<<"Please enter a username to create:";
     cin >> userName;
+    checkString = "create "+userName;
 
-    // Append spaces to userName if it is less than 15 characters long
-    if(userName.length() != 15){
-        // determine the amount of spaces needed
-        int spaceNum = 15-userName.length();
-        // create a character array to hold spaces
-        char space[spaceNum];
-        for(int i=0; i<=spaceNum; i++){
-            space[i] = '_';
-        }
-        // convert char array to string
-        string spaceString(space);
-        //delete[] space;   
-        // append spaces to username 
-        newUserName = userName.append(spaceString);
-        // checkstring == username+spaces if less than 15 characters
-        checkString = "create "+newUserName;
-    }else{
-        // checkstring == username if equal to 15 characters
-        checkString = "create "+userName;
-    }   
-    // Check if the current user name is trying to be deleted
-    if(currentUser.name.compare(userName) == 0){
+    // check if user being created is current user
+    if(currentUser.name.compare(userName)==0){
         cout << "Cannot create current user" << endl;
         createUser();
     }else{
         // iterate through userAccounts
         for(int i = 0; i< 256; i++){
-            // check if username exists in userAccounts
+            // check if username already exists in userAccounts
             if((users[i].name).compare(userName) == 0){
                 while(!readDTF.eof()){
                     getline(readDTF, line);
                     // Check the daily transaction file if the user has been deleted already
                     if((offset = line.find(checkString, 0)) != string::npos){
-                        cout << "User has already been previously created" << endl;
+                        cout << "User has already been created" << endl;
                         // call deleteUser() again
-                        createUser();
+                        deleteUser();
                     }
                     else{
                         // Output to console
-                        // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "created "+userName << endl;
                         outToDTF <<  checkString << endl;
+                        transactionCommands(transactionCommand);
                     }
                 }
             }
-        }   
+        }    
     }
+
+
 }
 
 /*
@@ -345,10 +335,8 @@ void deleteUser(){
                         cout << "User has already been previously deleted" << endl;
                         // call deleteUser() again
                         deleteUser();
-                    }
-                    else{
+                    }else{
                         // Output to console
-                        // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "deleted "+userName << endl;
                         outToDTF <<  checkString << endl;
                         transactionCommands(transactionCommand);
@@ -361,16 +349,50 @@ void deleteUser(){
 
 
 /*
- * - sell a ticket or tickets to an event
+ * - create an event and allow sale of a ticket or tickets 
  * - should ask for sale price for the tickets in dollars
  * - should ask for number of tickets for sale
  * - saves this info in the daily transaction file
  */
-/*
-   void sellTicket(){
+void sellTicket(){
+    string eventTitle;
+    int ticketAmount;
+    float price;
+    string transactionCommand;
 
-   }
-   */
+    string eventNameHolder;
+    int ticketNumHolder;
+    float ticketPriceholder;
+
+    cout << "Please enter an event title: ";
+    cin >> eventTitle;
+    if(eventTitle.length() > 25){
+        cout << "Event title cannot be more than 25 characters long" << endl;
+        transactionCommands(transactionCommand);
+    }else{
+        cout << "Please enter the amount of tickets to sell: ";
+        cin >> ticketAmount;
+        if(ticketAmount > 100){
+            cout << "Cannot sell more than 100 tickets" << endl;
+            transactionCommands(transactionCommand);
+        }else{
+            cout << "Please enter the price of each ticket: ";
+            cin >> price;
+            if(price > 999.99){
+                cout << "Price must not be greater than $999.99" << endl;
+                transactionCommands(transactionCommand);
+            }else{
+                eventNameHolder = eventTitle;
+                ticketNumHolder = ticketAmount;
+                ticketPriceholder = price;
+            }
+        }
+    }
+    /*
+     * OUTPUT TO DTF HERE 
+     */
+}
+
 
 /*
  * - purchase a tickets or ticket to an event
@@ -379,11 +401,10 @@ void deleteUser(){
  * - subtracts the number of tickets from the seller's inventory
  * - saves this info in the daily transaction file
  */
-/*
-   void buyTicket(){
+void buyTicket(){
+    
+}
 
-   }
-   */
 
 /*
  * - issue a credit to a buyer’s account from a seller’s account (privileged transaction)
@@ -391,11 +412,11 @@ void deleteUser(){
  * - transfer the specified amount of credit from the seller’s credit balance to the buyer’s credit balance
  * - save this information in the daily transaction file
  */
-/*
-   void refundUser(){
 
-   }
-   */
+void refundUser(){
+    
+}
+
 
 
 /*
@@ -403,8 +424,8 @@ void deleteUser(){
  * - in standard account should ask for the amount of credit
  * - saves this information in a daily transaction file
  */
-/*
-   void addCredit(){
 
-   }
-   */
+void addCredit(){
+    
+}
+
