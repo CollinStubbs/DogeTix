@@ -5,7 +5,7 @@ package BackEnd;
    From this class: the dtf files are merged, all files are read in,
    and the new files are created.
 ******************************************************/
-   public class BackEndManager{
+public class BackEndManager{
    static private String[] uafTemp;
    static private String[] atfTemp;
    static private String[] dtfTemp;
