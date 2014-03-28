@@ -4,6 +4,9 @@ package BackEnd;
    It is the top level of all backed end instances.
    From this class: the dtf files are merged, all files are read in,
    and the new files are created.
+   
+   TODO:
+      implement file read-ins
 ******************************************************/
 public class BackEndManager{
    static private String[] uafTemp;
@@ -29,10 +32,15 @@ public class BackEndManager{
    }
    //creates a DTFMerger instance and uses it to merge the DTF's which are then stored in dtfTemp
    public static boolean mergeDTF(){
-      
+    //DONE  
       DTFMerger merge = new DTFMerger();
       dtfTemp = merge.mergeDTF();
-      return false;
+      if(dtfTemp.length == 0){
+         return false;
+      }
+      else{
+         return true;
+      }
    }
    //reads in the data from the user account file and stores it in uafTemp
    public static boolean readInUserAccountFile(){
@@ -44,6 +52,9 @@ public class BackEndManager{
    }
    //creates an instance of OldToNewManager and uses it to create the new files
    public static boolean updateFiles(){
+   //DONE
+      OldToNewManager otnm = new OldToNewManager(uafHolder, atfHolder, dtfHolder);
+      
       return false;
    }
 
