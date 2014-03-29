@@ -20,7 +20,7 @@ public class DTFMerger{
    public static String[] mergeDTF(){
    //this section reads in all the text file names
       mergedDTF = new ArrayList<String>();
-      File f = new File("/DTFFolder/");
+      File f = new File("/DogeTix/src/BackEnd/DTFFolder");
       FilenameFilter filter = 
          new FilenameFilter(){
             public boolean accept(File dir, String name){
@@ -46,7 +46,7 @@ public class DTFMerger{
       }
       
       //merge the files into mergedDTF string array 
-      return (String[])mergedDTF.toArray();
+      return mergedDTF.toArray(new String[0]);
    }
 }
 //*************NOTE THIS ASSUMES THAT THE merged DTF FILE IS NOT KEPT which is unclear in the doc*/
