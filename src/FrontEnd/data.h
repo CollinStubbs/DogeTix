@@ -7,6 +7,10 @@ using namespace std;
 #ifndef DATA_H_
 #define DATA_H_
 
+extern int eventTitleLength = 19;
+extern int sellerNameLength = 13;
+extern int userNameLength = 15;
+
 struct User{
 	string name;
 	string type;
@@ -21,6 +25,7 @@ struct Event{
 };
 
 
+/******DTF STRUCTURES******/
 string spaces(string text, int size);
 /* 
  * Three dtf structs for the various transactions
@@ -36,9 +41,9 @@ struct DTF1{
 DTF1* CreateDTF1(string tC, string uN, string uT, string C){
 	DTF1* temp = new DTF1;
 	temp->transActionCode = tC;
-	if(uN.size() < 15){
+	if(uN.size() < userNameLength){
 		// get size of username;
-		int size = 15-uN.size();
+		int size = userNameLength-uN.size();
 		temp->userName = spaces(uN, size);
 	}else{
 		temp->userName = uN;
@@ -70,7 +75,31 @@ struct DTF3{
 	int ticketNum;
 	float ticketPrice;
 };
+DTF3* CreateDTF3(string tC, string eN, string sN, int tN, float tP){
+	DTF3* temp = new DTF3;
+	temp->transActionCode = tC;
+	if(eN.size() < eventTitleLength){
+		// get size of username;
+		int size = eventTitleLength-eN.size();
+		temp->eventName = spaces(eN, size);
+	}else{
+		temp->eventName = eN;
+	}
+	if(sN.size() < sellerNameLength){
+		// get size of username;
+		int size = sellerNameLength-sN.size();
+		temp->sellerName = spaces(sN, size);
+	}else{
+		temp->sellerName = sN;
+	}
+	temp->ticketNum = tN;
+	temp->ticketPrice = tP;
+	return temp;
+}
 
+/*
+ * helper function to replace spaces with underscores 
+ */
 string spaces(string text, int size){
 	text = text.append(size, ' ');
     for(int i = 0; i < text.length(); i++)
@@ -80,8 +109,5 @@ string spaces(string text, int size){
     }
     return text;
 }
-
-
-
 
 #endif

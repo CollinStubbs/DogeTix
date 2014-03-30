@@ -15,5 +15,8 @@ $(BINARY): $(OBJECTS)
 
 .PHONY: clean
 
+run:
+	./DTFE tickets.txt user_info.txt
+
 clean:
 	rm -f $(OBJECTS) $(BINARY)

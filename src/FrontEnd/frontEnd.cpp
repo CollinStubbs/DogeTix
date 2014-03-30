@@ -405,6 +405,7 @@ void sellTicket(){
     string checkString = "sell "+eventTitle;
 
     for(int i=0; i<ticketsSize; i++){
+        string sellerName = currentUser.name;
         if((tickets[i].eventName).compare(eventTitle) == 0){
             cout << "Error: the event already exists" << endl;
             transactionCommands(transactionCommand);
@@ -417,7 +418,7 @@ void sellTicket(){
                     cout << "Error: the event already exists" << endl;
                     transactionCommands(transactionCommand);
                 }else{
-                    if(eventTitle.length() <= 25){
+                    if(eventTitle.length() <= eventTitleLength){
                         cout << "Please enter ticket price: ";
                         cin >> ticketPrice;
                         if(ticketPrice <= 999.99){ 
@@ -425,7 +426,8 @@ void sellTicket(){
                             cin >> ticketNum;
                             if(ticketNum <= 100){
                                 cout << "Selling "<<ticketNum<<" tickets for "<<eventTitle<<" at $"<< ticketPrice;
-                                outToDTF << checkString << " "<<ticketNum << " @ $"<< ticketPrice << endl;
+                                DTF3 *output = CreateDTF3("06", eventTitle, sellerName, ticketNum, ticketPrice);
+                                outToDTF << output->transActionCode << "_" << output->eventName << "_" << output->sellerName << "_" << output->ticketNum << "_" << output->ticketPrice << endl;
                                 cout << endl;
                                 transactionCommands(transactionCommand);
                             }else{
@@ -446,8 +448,6 @@ void sellTicket(){
     }
 
 }
-
-
 /*
  * - purchase a tickets or ticket to an event
  * - asks for: event title, number of tickets and the seller’s username
