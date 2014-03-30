@@ -81,9 +81,7 @@ void initialize(string file1, string file2){
         usizeStream.unsetf(std::ios_base::skipws);
         ticketsSize = count(istream_iterator<char>(tsizeStream), istream_iterator<char>(),'\n')+1;
         usersSize = count(istream_iterator<char>(usizeStream), istream_iterator<char>(),'\n')+1;
-        cout << "size of tickets file: " << ticketsSize << "\n";
-        cout << "size of users file: " << usersSize << "\n";
-
+        
         // create both arrays that will hold the information
         users = new User[usersSize];
         tickets = new Event[ticketsSize];
@@ -125,8 +123,11 @@ void initialize(string file1, string file2){
             }
             uStream.close();
         }
-        
+        /*
         // For parse testing purposes
+        cout << "size of tickets file: " << ticketsSize << "\n";
+        cout << "size of users file: " << usersSize << "\n";
+        
         cout << "Events: "<< endl;    
         for(int i=0; i<ticketsSize; i++){
         cout << tickets[i].eventName << endl;
@@ -134,14 +135,13 @@ void initialize(string file1, string file2){
         cout << tickets[i].nTickets << endl;
         cout << tickets[i].ticketPrice << endl;
         }
-
         cout << endl;
         cout << "Users: "<< endl;
         for(int i=0; i<usersSize; i++){
         cout << users[i].name << endl;
         cout << users[i].type << endl;
         cout << users[i].credit << endl;
-        }
+        }*/
         
         login();
     }
@@ -340,7 +340,6 @@ void deleteUser(){
     string userName;
     string checkString;
     string line;
-    string transactionCommand;
     int offset;
 
     cout<<"Please enter a username to delete:";
@@ -387,7 +386,6 @@ void sellTicket(){
     string eventTitle;
     long ticketPrice;
     int ticketNum;
-    string transactionCommand;
     string line;
 
     cout << "Please enter the event title: ";
@@ -486,5 +484,26 @@ void refundUser(){
  * - saves this information in a daily transaction file
  */
 void addCredit(){
+    string userName;
+    float creditAmount;
+
+    cout << "Please enter username you wish to add credit to: ";
+    cin >> userName;
+    for(int i=0; i<usersSize; i++){
+        if((users[i].name).compare(userName)==0){
+            cout << "Please enter the amount to add: ";
+            cin >> creditAmount;
+            if(creditAmount <= 1000.00){
+                cout << "Added $"<<creditAmount<<" to "<<userName<<endl;
+                outToDTF << "addCredit $"<<creditAmount<<" to "<<userName << endl;
+            }else{
+                cout << "Error: Only a maximum of $1000.00 can be added to an account in a given session." << endl;
+                transactionCommands(transactionCommand);
+            }
+        }else{
+            cout << "Error: Username does not exist";
+            transactionCommands(transactionCommand);
+        }
+    }
 
 }
