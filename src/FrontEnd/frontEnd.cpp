@@ -12,6 +12,7 @@
  *
  */
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
@@ -81,7 +82,7 @@ void initialize(string file1, string file2){
         usizeStream.unsetf(std::ios_base::skipws);
         ticketsSize = count(istream_iterator<char>(tsizeStream), istream_iterator<char>(),'\n')+1;
         usersSize = count(istream_iterator<char>(usizeStream), istream_iterator<char>(),'\n')+1;
-        
+
         // create both arrays that will hold the information
         users = new User[usersSize];
         tickets = new Event[ticketsSize];
@@ -127,7 +128,7 @@ void initialize(string file1, string file2){
         // For parse testing purposes
         cout << "size of tickets file: " << ticketsSize << "\n";
         cout << "size of users file: " << usersSize << "\n";
-        
+
         cout << "Events: "<< endl;    
         for(int i=0; i<ticketsSize; i++){
         cout << tickets[i].eventName << endl;
@@ -142,7 +143,7 @@ void initialize(string file1, string file2){
         cout << users[i].type << endl;
         cout << users[i].credit << endl;
         }*/
-        
+
         login();
     }
 
@@ -152,7 +153,6 @@ void login(){
     cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
     cout << "Please type 'login' to start a Front End session" << endl;
     while(cin >> transactionCommand){
-        outToDTF << transactionCommand << endl;
         // Check to make sure user logs in first
         if(transactionCommand == "login"){
             currentUser.name = "";
@@ -161,7 +161,6 @@ void login(){
             do {
                 cout << "Please enter username: ";
                 cin >> userName;
-                outToDTF << userName << endl;
                 //checks the users and sets the current user 
                 for(int i = 0; i<usersSize; i++){
                     if((users[i].name).compare(userName) == 0){
@@ -203,7 +202,7 @@ void transactionCommands(string transactionCommand){
         cout << "refund:    issue a credit to a buyer’s account from a seller’s account" << endl;
     }
     if((currentUser.type).compare("AA") == 0){
-        cout << "addCredit: add credit into the system for the purchase of accounts" << endl;
+        cout << "add: add credit into the system for the purchase of accounts" << endl;
     }
     /*
      * Prompt the user to enter a command
@@ -258,7 +257,7 @@ void transactionCommands(string transactionCommand){
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
         }
-    }else if(transactionCommand == "addCredit"){
+    }else if(transactionCommand == "add"){
         if((currentUser.type).compare("AA") == 0){
             cout << "You have selected addCredit" << endl;
             addCredit();
@@ -275,6 +274,16 @@ void transactionCommands(string transactionCommand){
  * Loop back to login()
  */
 void logout(){
+    string userName = currentUser.name;
+    string userType = currentUser.type;
+
+    stringstream ss;
+    ss << currentUser.credit;
+    string availableCredit = ss.str();
+
+    DTF1 *output = CreateDTF1("00", userName, userType, availableCredit);
+    outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+
     login();
 }
 
@@ -320,7 +329,8 @@ void createUser(){
                     else{
                         // Output to console
                         cout << "created "+userName+" of type "+userType << endl;
-                        outToDTF <<  checkString+" "+userType<< endl;
+                        DTF1 *output = CreateDTF1("01", userName, userType, "000000000");
+                        outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
                         transactionCommands(transactionCommand);
                     }
                 }
@@ -355,6 +365,7 @@ void deleteUser(){
         for(int i = 0; i<usersSize; i++){
             // check if username exists in userAccounts
             if((users[i].name).compare(userName) == 0){
+                string userType = users[i].type;
                 while(!readDTF.eof()){
                     getline(readDTF, line);
                     // Check the daily transaction file if the user has been deleted already
@@ -367,7 +378,8 @@ void deleteUser(){
                         // Output to console
                         // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "deleted "+userName << endl;
-                        outToDTF <<  checkString << endl;
+                        DTF1 *output = CreateDTF1("02", userName, userType, "000000000");
+                        outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
                         transactionCommands(transactionCommand);
                     }
                 }
@@ -417,7 +429,7 @@ void sellTicket(){
                                 cout << endl;
                                 transactionCommands(transactionCommand);
                             }else{
-                                 cout << "Error: maximum number of tickets for sale is 100" << endl;
+                                cout << "Error: maximum number of tickets for sale is 100" << endl;
                                 transactionCommands(transactionCommand);
                             }
                         }else{
@@ -445,27 +457,27 @@ void sellTicket(){
  */
 void buyTicket(){
     /*
-    string eventTitle;
-    string sellerName;
-    string transactionCommand;
+       string eventTitle;
+       string sellerName;
+       string transactionCommand;
 
-    cout << "Please enter the event title: ";
-    cin >> eventTitle;
-    for(int i=0; i<ticketsSize; i++){
-        if((tickets[i].eventName).compare(eventTitle) == 0){
-            cout << "Please enter the seller's username: ";
-            cin >> sellerName;
-            if((tickets[i].sellerName).compare(sellerName) == 0){
-                cout << "yes";
-            }else{
-                cout << "Error: Seller does not exist" << endl;
-                transactionCommands(transactionCommand);
-            }
-        }else{
-            cout << "Error: Event does not exist" << endl;
-            transactionCommands(transactionCommand);
-        }
-    }*/
+       cout << "Please enter the event title: ";
+       cin >> eventTitle;
+       for(int i=0; i<ticketsSize; i++){
+       if((tickets[i].eventName).compare(eventTitle) == 0){
+       cout << "Please enter the seller's username: ";
+       cin >> sellerName;
+       if((tickets[i].sellerName).compare(sellerName) == 0){
+       cout << "yes";
+       }else{
+       cout << "Error: Seller does not exist" << endl;
+       transactionCommands(transactionCommand);
+       }
+       }else{
+       cout << "Error: Event does not exist" << endl;
+       transactionCommands(transactionCommand);
+       }
+       }*/
 }
 
 /*
@@ -485,24 +497,29 @@ void refundUser(){
  */
 void addCredit(){
     string userName;
-    float creditAmount;
+    long creditAmount;
 
     cout << "Please enter username you wish to add credit to: ";
     cin >> userName;
     for(int i=0; i<usersSize; i++){
-        if((users[i].name).compare(userName)==0){
+        // check if username exists in userAccounts
+        if((users[i].name).compare(userName) == 0){
+            string userType = users[i].type;
             cout << "Please enter the amount to add: ";
             cin >> creditAmount;
             if(creditAmount <= 1000.00){
+                long totalCredit = users[i].credit + creditAmount;
+                stringstream ss;
+                ss << totalCredit;
+                string availableCredit = ss.str();
                 cout << "Added $"<<creditAmount<<" to "<<userName<<endl;
-                outToDTF << "addCredit $"<<creditAmount<<" to "<<userName << endl;
+                DTF1 *output = CreateDTF1("06", userName, userType, availableCredit);
+                outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+                transactionCommands(transactionCommand);
             }else{
                 cout << "Error: Only a maximum of $1000.00 can be added to an account in a given session." << endl;
                 transactionCommands(transactionCommand);
             }
-        }else{
-            cout << "Error: Username does not exist";
-            transactionCommands(transactionCommand);
         }
     }
 
