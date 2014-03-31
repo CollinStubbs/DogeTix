@@ -16,6 +16,7 @@ public class OldToNewManager{
    String[] mergedDTF;
    String[] newUAF;
    String[] newATF;
+
    
    //Constructor
    public OldToNewManager(String[] userAccountFileHolder, String[] availableTicketHolder, String[] mergedDTF){
@@ -23,6 +24,7 @@ public class OldToNewManager{
       this.userAccountFileHolder = userAccountFileHolder;
       this.availableTicketHolder = availableTicketHolder;
       this.mergedDTF = mergedDTF; 
+      DTForm [] dtform = new DTForm [(mergedDTF.length)];
         
       if(!applyMergedDTF(mergedDTF)){
       //write new error
@@ -43,7 +45,7 @@ public class OldToNewManager{
       /*if(!checkTicketNum(num)){
          //a = new ErrorLogManager("constraint", "negative ticket number", transaction);
       }*/
-      DTForm [] dtform = new DTForm [(mergedDTF.length)];
+      
       for(int i= 0; i < mergedDTF.length; i++){
          dtform[i] = new DTForm();
          dtform[i].setTType(mergedDTF[i].substring(0, 2));
@@ -56,6 +58,7 @@ public class OldToNewManager{
    
    //used to wrie a new uaf file
    public static boolean writeToNewUAFFile(){
+      
       return false;
    }
    

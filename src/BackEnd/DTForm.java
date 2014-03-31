@@ -15,13 +15,28 @@ public class DTForm
    public void setTType(String t){
       transType = t;
    }
+   public String getTType(){
+      return transType;
+   }
+
    public void setName(String n){
       userName = n;
    }
+   public String getName(){
+      return userName;
+   }
+
    public void setUType(String u){
       userType = u;
    }
+   public String getUType(){
+      return userType;
+   }
+
    public void setCredit(String c){
       availCredit = c;
+   }
+   public String getCredit(){
+      return availCredit;
    }
  }
