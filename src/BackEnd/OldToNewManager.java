@@ -78,10 +78,10 @@ public class OldToNewManager{
 
 }
 
-class DTForm
+public class DTForm(String[] transType, String[] userName, String[] userType, String[] availCredit)
 {
     public String transType; 
     public String userName;  
     public String userType;
     public String availCredit;
- };
+ }
