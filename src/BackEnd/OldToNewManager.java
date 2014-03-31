@@ -43,7 +43,7 @@ public class OldToNewManager{
       /*if(!checkTicketNum(num)){
          //a = new ErrorLogManager("constraint", "negative ticket number", transaction);
       }*/
-      DTForm [] dtform = new DTForm [(mergedDTF.length)]
+      DTForm [] dtform = new DTForm [(mergedDTF.length)];
       for(int i= 0; i < mergedDTF.length; i++){
          dtform[i] = new DTForm();
          dtform[i].setTType(mergedDTF[i].substring(0, 2));
