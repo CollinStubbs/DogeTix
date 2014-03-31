@@ -24,7 +24,7 @@ public class OldToNewManager{
       this.availableTicketHolder = availableTicketHolder;
       this.mergedDTF = mergedDTF; 
         
-      if(!applyMergedDTF()){
+      if(!applyMergedDTF(mergedDTF)){
       //write new error
       }
       else if(!writeToNewUAFFile()){
@@ -36,7 +36,7 @@ public class OldToNewManager{
    }
    
    //used to apply the data from the merged DTF to the user account files
-   public static boolean applyMergedDTF(){ 
+   public static boolean applyMergedDTF(String[] mergedDTF){ 
       ErrorLogManager a;
       //example of a way to check neg tick errors
          //String transaction - a substring of the dtf line pertaining to the transaction
@@ -85,23 +85,3 @@ public class OldToNewManager{
 
 }
 
-public class DTForm
-{
-   private String transType;
-   private String userName;
-   private String userType;
-   private String availCredit;
-
-   public void setTType(String t){
-      transType = t;
-   }
-   public void setName(String n){
-      userName = n;
-   }
-   public void setUType(String u){
-      userType = u;
-   }
-   public void setCredit(String c){
-      availCredit = c;
-   }
- }
