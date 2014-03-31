@@ -38,7 +38,7 @@ public class OldToNewManager{
    }
    
    //used to apply the data from the merged DTF to the user account files
-   public static boolean applyMergedDTF(String[] mergedDTF){ 
+   public static boolean applyMergedDTF(String[] mergedDTF, DTForm[] dtform){ 
       ErrorLogManager a;
       //example of a way to check neg tick errors
          //String transaction - a substring of the dtf line pertaining to the transaction
