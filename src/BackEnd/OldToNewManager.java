@@ -80,7 +80,12 @@ public class OldToNewManager{
 
 public class DTForm
 {
-   public DTForm(String[] transType, String[] userName, String[] userType, String[] availCredit){
+   public String transType;
+   public String userName;
+   public String userType;
+   public String availCredit;
+   
+   public DTForm(String transType, String userName, String userType, String availCredit){
       this.transType = transType;
       this.userName = userName;
       this.userType = userType;
