@@ -43,7 +43,14 @@ public class OldToNewManager{
       /*if(!checkTicketNum(num)){
          //a = new ErrorLogManager("constraint", "negative ticket number", transaction);
       }*/
-      for()
+      DTForm [] dtform = new DTForm [(mergedDTF.length)]
+      for(int i= 0; i < mergedDTF.length; i++){
+         dtform[i] = new DTForm();
+         dtform[i].setTType(mergedDTF[i].substring(0, 2));
+         dtform[i].setName(mergedDTF[i].substring(3, 15));
+         dtform[i].setUType(mergedDTF[i].substring(19, 2));
+         dtform[i].setCredit(mergedDTF[i].substring(22, 9));
+      }
       return false;
    }
    
@@ -80,15 +87,21 @@ public class OldToNewManager{
 
 public class DTForm
 {
-   public String transType;
-   public String userName;
-   public String userType;
-   public String availCredit;
+   private String transType;
+   private String userName;
+   private String userType;
+   private String availCredit;
 
-   public DTForm(String transType, String userName, String userType, String availCredit){
-      this.transType = transType;
-      this.userName = userName;
-      this.userType = userType;
-      this.availCredit = availCredit;
+   public void setTType(String t){
+      transType = t;
+   }
+   public void setName(String n){
+      userName = n;
+   }
+   public void setUType(String u){
+      userType = u;
+   }
+   public void setCredit(String c){
+      availCredit = c;
    }
  }
