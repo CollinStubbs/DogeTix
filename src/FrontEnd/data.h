@@ -7,9 +7,9 @@ using namespace std;
 #ifndef DATA_H_
 #define DATA_H_
 
-extern int eventTitleLength = 19;
-extern int sellerNameLength = 13;
-extern int userNameLength = 15;
+extern int eventTitleLength;
+extern int sellerNameLength;
+extern int userNameLength;
 
 struct User{
 	string name;
@@ -23,7 +23,6 @@ struct Event{
 	int nTickets;
 	long ticketPrice;
 };
-
 
 /******DTF STRUCTURES******/
 string spaces(string text, int size);
@@ -57,13 +56,25 @@ struct DTF2{
 	string transActionCode;
 	string buyerName;
 	string sellerName;
-	long refundCredit;
+	string refundCredit;
 };
-DTF2* CreateDTF2(string tC, string uN, string sN, long C){
+DTF2* CreateDTF2(string tC, string uN, string sN, string C){
 	DTF2* temp = new DTF2;
 	temp->transActionCode = "05";
-	temp->buyerName = uN;
-	temp->sellerName = sN;
+	if(uN.size() < userNameLength){
+		// get size of username;
+		int size = userNameLength-uN.size();
+		temp->buyerName = spaces(uN, size);
+	}else{
+		temp->buyerName = uN;
+	}
+	if(sN.size() < sellerNameLength){
+		// get size of username;
+		int size = sellerNameLength-sN.size();
+		temp->sellerName = spaces(sN, size);
+	}else{
+		temp->sellerName = sN;
+	}
 	temp->refundCredit = C;
 	return temp;
 }
