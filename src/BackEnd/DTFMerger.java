@@ -46,7 +46,7 @@ public class DTFMerger{
       }
       
       //merge the files into mergedDTF string array 
-      return mergedDTF.toArray(new String[0]);
+      return mergedDTF.toArray(new String[mergedDTF.size()]);
    }
 }
 //*************NOTE THIS ASSUMES THAT THE merged DTF FILE IS NOT KEPT which is unclear in the doc*/
