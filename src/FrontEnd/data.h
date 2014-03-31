@@ -1,6 +1,8 @@
 // This file contains the tructs for the input files
 
 #include <string>
+#include <sstream>
+#include <iostream>
 
 using namespace std;
 
@@ -26,6 +28,8 @@ struct Event{
 
 /******DTF STRUCTURES******/
 string spaces(string text, int size);
+string int_array_to_string(int int_array[], int size_of_array);
+string addZeros(string credit, int size);
 /* 
  * Three dtf structs for the various transactions
  */
@@ -48,7 +52,12 @@ DTF1* CreateDTF1(string tC, string uN, string uT, string C){
 		temp->userName = uN;
 	}	
 	temp->userType = uT;
-	temp->availableCredit = C;
+	if(C.length() < 9){
+		int size = C.length();
+		temp->availableCredit = addZeros(C, size);
+	}else{
+		temp->availableCredit = C;
+	}
 	return temp;
 }
 struct DTF2{
@@ -75,7 +84,12 @@ DTF2* CreateDTF2(string tC, string uN, string sN, string C){
 	}else{
 		temp->sellerName = sN;
 	}
-	temp->refundCredit = C;
+	if(C.length() < 9){
+		int size = C.length();
+		temp->refundCredit = addZeros(C, size);
+	}else{
+		temp->refundCredit = C;
+	}
 	return temp;
 }
 struct DTF3{
@@ -83,8 +97,8 @@ struct DTF3{
 	string transActionCode;
 	string eventName;
 	string sellerName;
-	int ticketNum;
-	float ticketPrice;
+	string ticketNum;
+	string ticketPrice;
 };
 DTF3* CreateDTF3(string tC, string eN, string sN, int tN, float tP){
 	DTF3* temp = new DTF3;
@@ -103,8 +117,24 @@ DTF3* CreateDTF3(string tC, string eN, string sN, int tN, float tP){
 	}else{
 		temp->sellerName = sN;
 	}
-	temp->ticketNum = tN;
-	temp->ticketPrice = tP;
+	// convert int to string
+	ostringstream itS;
+	itS << tN;
+	string t(itS.str());
+	if(t.length() < 3){
+		temp->ticketNum = addZeros(t, t.length());
+	}else{
+		temp->ticketNum = t;
+	}
+	// convert float to string s
+	ostringstream ss;
+	ss << tP;
+	string s(ss.str());
+	if(s.length() < 6){
+		temp->ticketPrice = addZeros(s, s.length());
+	}else{
+		temp->ticketPrice = s;
+	}	
 	return temp;
 }
 
@@ -119,6 +149,29 @@ string spaces(string text, int size){
             text[i] = '_';
     }
     return text;
+}
+
+/*
+ * Casts an integer array to a string
+ */
+string int_array_to_string(int int_array[], int size_of_array){
+	ostringstream oss("");
+ 	for (int temp = 0; temp < size_of_array; temp++){
+  		oss << int_array[temp];
+ 	}
+ 	return oss.str();
+}
+
+/*
+ * add zeros to the beggining of credits
+ */
+string addZeros(string credit, int size){
+	int arr[size];
+	for(int i=0; i<size; i++){
+		arr[i]=0;
+	}
+	credit = int_array_to_string(arr, size)+credit;
+	return credit;
 }
 
 #endif

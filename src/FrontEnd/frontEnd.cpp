@@ -577,7 +577,7 @@ void refundUser(){
     }
 
     // Print to console the results
-    cout << "Refunded "<<buyer.name<<" $ "<<refundAmount<< " from "<<seller.name << endl;;
+    cout << "Refunded "<<buyer.name<<" $"<<refundAmount<< " from "<<seller.name << endl;;
     cout << buyer.name << " CREDITS: " << buyer.credit << endl;
     cout << seller.name << " CREDITS: " << seller.credit << endl;
 
