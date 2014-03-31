@@ -131,6 +131,7 @@ void initialize(string file1, string file2){
         }
         
         // For parse testing purposes
+        /*
         cout << "size of tickets file: " << ticketsSize << "\n";
         cout << "size of users file: " << usersSize << "\n";
 
@@ -147,8 +148,7 @@ void initialize(string file1, string file2){
         cout << users[i].name << endl;
         cout << users[i].type << endl;
         cout << users[i].credit << endl;
-        }
-
+        }*/
         login();
     }
 
@@ -218,7 +218,6 @@ void transactionCommands(string transactionCommand){
 
     if(transactionCommand == "logout"){
         cout << "Logging out, have a great day!" << endl;
-        outToDTF << transactionCommand << endl;
         logout();
 
     }else if(transactionCommand == "create"){
@@ -282,10 +281,12 @@ void logout(){
     string userName = currentUser.name;
     string userType = currentUser.type;
 
+    // Cast a long to a string
     stringstream ss;
     ss << currentUser.credit;
     string availableCredit = ss.str();
 
+    // Output to DTFD
     DTF1 *output = CreateDTF1("00", userName, userType, availableCredit);
     outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
 
@@ -462,13 +463,64 @@ void sellTicket(){
  */
 void buyTicket(){
 
-    string eventTitle;
+    string eventName;
     string sellerName;
-    string transactionCommand;
-    int tickets;
+    long numTickets;
+    long total;
+    int remTick;
 
-    cout << "Please enter the event title: ";
-    cin >> eventTitle;
+    cout << "Please enter the event name: ";
+    cin >> eventName;
+    cout << "Please enter the seller’s username:";
+    cin >> sellerName;
+
+    Event temp;
+    for(int i=0; i<ticketsSize; i++){
+        if(((tickets[i].eventName) == eventName) && ((tickets[i].sellerName) == sellerName)){
+            temp.eventName = tickets[i].eventName;
+            temp.sellerName = tickets[i].sellerName;
+            temp.nTickets = tickets[i].nTickets;
+            temp.ticketPrice =  tickets[i].ticketPrice;
+        }
+    }
+
+    cout << "EVENT DETAILS: ";
+    cout << "Event Title: "<<temp.eventName << endl; 
+    cout << "Seller Name: "<<temp.sellerName << endl;
+    cout << "Available Tickets: "<<temp.nTickets << endl;
+    cout << "Price: $"<<temp.ticketPrice<<" per ticket"<< endl;
+    cout << endl;
+    cout << "Please enter the amount of tickets to purchase: ";
+    cin >> numTickets;
+    
+    if(numTickets > temp.nTickets){
+        cout << "Error: There are only "<<temp.nTickets<<" tcket(s) available." << endl;
+        transactionCommands(transactionCommand);
+    }else{
+        
+        total = numTickets*temp.ticketPrice;
+        remTick = temp.nTickets - numTickets;
+        if(currentUser.credit < total){
+            cout << "Error: Not enough credits to purchase ticket for event";
+            transactionCommands(transactionCommand);
+        }else{
+            string inp; 
+            cout << "Are you sure you want to purchase "<<numTickets<<" for "<<temp.eventName<<" for "<<total<<" ? (y/n)";
+            cin >> inp;
+            if(inp == "y" || inp == "Y"){
+                cout << "Purchased!";
+                DTF3 *output = CreateDTF3("04", eventName, temp.sellerName, remTick, temp.ticketPrice);
+                outToDTF << output->transActionCode << "_" << output->eventName << "_" << output->sellerName << "_" << output->ticketNum << "_" << output->ticketPrice << endl;
+                transactionCommands(transactionCommand);
+            }else if(inp == "n" || inp == "N"){
+                cout << "Cancelled Purchase.";
+                transactionCommands(transactionCommand);
+            }else{
+                cout << "Error: Invalid Input" << endl;
+                transactionCommands(transactionCommand);
+            }
+        }
+    }
     
 }
 
@@ -513,6 +565,7 @@ void refundUser(){
     cout << "Amount: ";
     cin >> refundAmount;
 
+    // Check if seller has enough credits for the refund
     if(refundAmount > seller.credit){
         cout << "Error: Seller does not have enough credit, please add credit to user account" << endl;
         transactionCommands(transactionCommand);
@@ -523,15 +576,17 @@ void refundUser(){
         buyer.credit += refundAmount;
     }
 
+    // Print to console the results
     cout << "Refunded "<<buyer.name<<" $ "<<refundAmount<< " from "<<seller.name << endl;;
     cout << buyer.name << " CREDITS: " << buyer.credit << endl;
     cout << seller.name << " CREDITS: " << seller.credit << endl;
 
-
+    // Cast refundAmount to a string
     stringstream ss;
     ss << refundAmount;
     string refundCredit = ss.str();
 
+    // Output to DTF
     DTF2 *output = CreateDTF2("05", buyer.name, seller.name, refundCredit);
     outToDTF << output->transActionCode << "_"<< output->buyerName << "_"<<output->sellerName <<"_"<<output->refundCredit <<endl;
     transactionCommands(transactionCommand);
