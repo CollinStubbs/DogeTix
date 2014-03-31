@@ -26,6 +26,7 @@ User *users; // users struct pointer
 Event *tickets; // tickets struct pointer
 unsigned usersSize; // size of users
 unsigned ticketsSize; // size of tickets
+
 // Create a user struct called current user for login purposes
 User currentUser;
 string transactionCommand;
@@ -33,6 +34,11 @@ string transactionCommand;
 // output stream to daily transaction file
 ofstream outToDTF("DailyTransactionFile.txt");
 ifstream readDTF("DailyTransactionFile.txt");
+
+// COnstants
+int eventTitleLength = 19;
+int sellerNameLength = 13;
+int userNameLength = 15;
 
 // Method defenitions
 void initialize(string file1, string file2);
@@ -45,7 +51,6 @@ void sellTicket();
 void buyTicket();
 void refundUser();
 void addCredit();
-
 
 /***************************Main method*****************************/
 int main(int argc, char* argv[]){
@@ -124,7 +129,7 @@ void initialize(string file1, string file2){
             }
             uStream.close();
         }
-        /*
+        
         // For parse testing purposes
         cout << "size of tickets file: " << ticketsSize << "\n";
         cout << "size of users file: " << usersSize << "\n";
@@ -142,7 +147,7 @@ void initialize(string file1, string file2){
         cout << users[i].name << endl;
         cout << users[i].type << endl;
         cout << users[i].credit << endl;
-        }*/
+        }
 
         login();
     }
@@ -446,8 +451,8 @@ void sellTicket(){
             }
         }
     }
-
 }
+
 /*
  * - purchase a tickets or ticket to an event
  * - asks for: event title, number of tickets and the seller’s username
@@ -456,28 +461,15 @@ void sellTicket(){
  * - saves this info in the daily transaction file
  */
 void buyTicket(){
-    /*
-       string eventTitle;
-       string sellerName;
-       string transactionCommand;
 
-       cout << "Please enter the event title: ";
-       cin >> eventTitle;
-       for(int i=0; i<ticketsSize; i++){
-       if((tickets[i].eventName).compare(eventTitle) == 0){
-       cout << "Please enter the seller's username: ";
-       cin >> sellerName;
-       if((tickets[i].sellerName).compare(sellerName) == 0){
-       cout << "yes";
-       }else{
-       cout << "Error: Seller does not exist" << endl;
-       transactionCommands(transactionCommand);
-       }
-       }else{
-       cout << "Error: Event does not exist" << endl;
-       transactionCommands(transactionCommand);
-       }
-       }*/
+    string eventTitle;
+    string sellerName;
+    string transactionCommand;
+    int tickets;
+
+    cout << "Please enter the event title: ";
+    cin >> eventTitle;
+    
 }
 
 /*
@@ -487,6 +479,62 @@ void buyTicket(){
  * - save this information in the daily transaction file
  */
 void refundUser(){
+    
+    long refundAmount;
+
+    string bName;
+    string sName;
+
+    // create two instances of user for buyer and seller
+    User buyer;
+    User seller;
+
+    cout << "Please enter the buyer’s username: ";
+    cin >> bName;
+    for(int i=0; i<usersSize; i++){
+        if((users[i].name) == bName){
+            buyer.name = users[i].name;
+            buyer.type = users[i].type;
+            buyer.credit = users[i].credit;
+            buyer.loginState = users[i].loginState;
+        }
+    }
+    cout << "Please enter the sellers’s username: ";
+    cin >> sName;
+    for(int i=0; i<usersSize; i++){
+        if((users[i].name) == sName){
+            seller.name = users[i].name;
+            seller.type = users[i].type;
+            seller.credit = users[i].credit;
+            seller.loginState = users[i].loginState;
+        }
+    }
+    cout << "Please enter the amount to refund "<<buyer.name<< endl;
+    cout << "Amount: ";
+    cin >> refundAmount;
+
+    if(refundAmount > seller.credit){
+        cout << "Error: Seller does not have enough credit, please add credit to user account" << endl;
+        transactionCommands(transactionCommand);
+    }else{
+        // deduct refund amount from seller account
+        seller.credit -= refundAmount;
+        // add refund amount to buyer account
+        buyer.credit += refundAmount;
+    }
+
+    cout << "Refunded "<<buyer.name<<" $ "<<refundAmount<< " from "<<seller.name << endl;;
+    cout << buyer.name << " CREDITS: " << buyer.credit << endl;
+    cout << seller.name << " CREDITS: " << seller.credit << endl;
+
+
+    stringstream ss;
+    ss << refundAmount;
+    string refundCredit = ss.str();
+
+    DTF2 *output = CreateDTF2("05", buyer.name, seller.name, refundCredit);
+    outToDTF << output->transActionCode << "_"<< output->buyerName << "_"<<output->sellerName <<"_"<<output->refundCredit <<endl;
+    transactionCommands(transactionCommand);
 
 }
 
@@ -524,3 +572,4 @@ void addCredit(){
     }
 
 }
+

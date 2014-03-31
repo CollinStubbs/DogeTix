@@ -55,7 +55,7 @@ public class BackEndManager{
          System.out.println(e);
          return false;
       }
-      uafTemp = temp.toArray(new String[0]);
+      uafTemp = temp.toArray(new String[temp.size()]);
       return true;
    }
    //reads in the data from the available ticket files and stores it in atfTemp
@@ -71,7 +71,7 @@ public class BackEndManager{
          System.out.println(e);
          return false;
       }
-      atfTemp = temp.toArray(new String[0]);
+      atfTemp = temp.toArray(new String[temp.size()]);
       return true;
    }
    //creates an instance of OldToNewManager and uses it to create the new files
