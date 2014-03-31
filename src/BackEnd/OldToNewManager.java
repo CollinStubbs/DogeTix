@@ -43,7 +43,7 @@ public class OldToNewManager{
       /*if(!checkTicketNum(num)){
          //a = new ErrorLogManager("constraint", "negative ticket number", transaction);
       }*/
-
+      for()
       return false;
    }
    
@@ -84,7 +84,7 @@ public class DTForm
    public String userName;
    public String userType;
    public String availCredit;
-   
+
    public DTForm(String transType, String userName, String userType, String availCredit){
       this.transType = transType;
       this.userName = userName;
