@@ -1,7 +1,8 @@
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform logout You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform logout You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE

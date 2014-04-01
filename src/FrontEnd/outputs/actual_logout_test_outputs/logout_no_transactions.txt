@@ -1,6 +1,5 @@
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -11,16 +10,17 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform addCredit You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform addCredit You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -31,16 +31,17 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform buy You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform buy You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -51,16 +52,17 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform create You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform create You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -71,16 +73,17 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform delete You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform delete You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -91,16 +94,17 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform refund You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform refund You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
-g++ -g -c -O0 transactionCommands.cpp -o transactionCommands.o
-g++ frontEnd.o transactionCommands.o  -o DTFE
+g++ frontEnd.o  -o DTFE
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
 Please enter username: Successful login!
@@ -111,10 +115,12 @@ delete:    delete a user account
 sell:      sell a ticket or tickets to an event
 buy:       purchase a ticket or tickets to an event
 refund:    issue a credit to a buyer’s account from a seller’s account
-addCredit: add credit into the system for the purchase of accounts
+add: add credit into the system for the purchase of accounts
 
 Please enter a command: Logging out, have a great day!
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
- Cannot perform sell You must log in to a user account
-rm -f frontEnd.o transactionCommands.o DTFE
+Error: Cannot perform sell You must log in to a user account
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE

@@ -3,7 +3,7 @@
 # run the program using the make file
 make
 # test the file with username ADMIN COLLINSTUBBSSSS
-command1='login COLLINSTUBBSSSS login'
+command1='login COLLINSTUBBSSSS login q'
 echo $command1 | ./DTFE tickets.txt user_info.txt
 
 make clean

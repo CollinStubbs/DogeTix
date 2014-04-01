@@ -1,14 +1,15 @@
-/* TEAM 12
+/* 
+ * TEAM 12
  *
  * Matthew Militante, 100457072
  * Collin Stubbs, 100454604
  * Andrew Gulla, 100395486
  *
  * This is the frontEnd of our ticket system, DogeTix.
- * It uses an output file stream to store all the transactions
- * made by the user and places it into DailyTransactionFile.txt 
+ * It uses an output file stream to store all the
+ * user transactions and outputs it into DailyTransactionFile.txt 
  * which will be used to send information to the BackEnd of the 
- * program.
+ * application.
  *
  */
 #include <iostream>
@@ -18,6 +19,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <iterator>
+
 #include "data.h"
 
 using namespace std;
@@ -35,7 +37,7 @@ string transactionCommand;
 ofstream outToDTF("DailyTransactionFile.txt");
 ifstream readDTF("DailyTransactionFile.txt");
 
-// COnstants
+// Constants
 int eventTitleLength = 19;
 int sellerNameLength = 13;
 int userNameLength = 15;
@@ -84,7 +86,7 @@ void initialize(string file1, string file2){
 
         // get size of each file
         tsizeStream.unsetf(ios_base::skipws);
-        usizeStream.unsetf(std::ios_base::skipws);
+        usizeStream.unsetf(ios_base::skipws);
         ticketsSize = count(istream_iterator<char>(tsizeStream), istream_iterator<char>(),'\n')+1;
         usersSize = count(istream_iterator<char>(usizeStream), istream_iterator<char>(),'\n')+1;
 
@@ -131,24 +133,26 @@ void initialize(string file1, string file2){
         }
         
         // For parse testing purposes
-        /*
-        cout << "size of tickets file: " << ticketsSize << "\n";
-        cout << "size of users file: " << usersSize << "\n";
-
+        cout << endl;
+        cout << "INPUT FILES:" << endl;
+        cout << "size of tickets file: " << ticketsSize << " events \n";
+        cout << "size of users file: " << usersSize << " users \n";
+        cout << endl;
         cout << "Events: "<< endl;    
         for(int i=0; i<ticketsSize; i++){
-        cout << tickets[i].eventName << endl;
-        cout << tickets[i].sellerName << endl;
-        cout << tickets[i].nTickets << endl;
+        cout << tickets[i].eventName <<  " ";
+        cout << tickets[i].sellerName <<  " ";
+        cout << tickets[i].nTickets <<  " ";
         cout << tickets[i].ticketPrice << endl;
         }
         cout << endl;
         cout << "Users: "<< endl;
         for(int i=0; i<usersSize; i++){
-        cout << users[i].name << endl;
-        cout << users[i].type << endl;
+        cout << users[i].name << " ";
+        cout << users[i].type << " ";
         cout << users[i].credit << endl;
-        }*/
+        }
+        cout << endl;
         login();
     }
 
@@ -269,6 +273,9 @@ void transactionCommands(string transactionCommand){
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
         }
+    // forcequit frontend
+    }else if(transactionCommand == "q"){
+        exit(1);
     }else{
         cout << "Invalid command, please enter another command" << endl;
     }
@@ -360,12 +367,12 @@ void deleteUser(){
 
     cout<<"Please enter a username to delete:";
     cin >> userName;
-    checkString = "delete "+userName;
+    checkString = "02_"+userName;
 
     // Check if the current user name is trying to be deleted
     if(currentUser.name.compare(userName) == 0){
         cout << "Error: Cannot delete current user" << endl;
-        deleteUser();
+        transactionCommands(transactionCommand);
     }else{
         // iterate through userAccounts
         for(int i = 0; i<usersSize; i++){
@@ -377,12 +384,9 @@ void deleteUser(){
                     // Check the daily transaction file if the user has been deleted already
                     if((offset = line.find(checkString, 0)) != string::npos){
                         cout << "Error: User has already been previously deleted" << endl;
-                        // call deleteUser() again
                         deleteUser();
                     }
                     else{
-                        // Output to console
-                        // FOR SOME REASON IT PRINTS IT TWICE
                         cout << "deleted "+userName << endl;
                         DTF1 *output = CreateDTF1("02", userName, userType, "000000000");
                         outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
@@ -551,6 +555,7 @@ void refundUser(){
             buyer.loginState = users[i].loginState;
         }
     }
+
     cout << "Please enter the sellers’s username: ";
     cin >> sName;
     for(int i=0; i<usersSize; i++){
@@ -561,6 +566,7 @@ void refundUser(){
             seller.loginState = users[i].loginState;
         }
     }
+
     cout << "Please enter the amount to refund "<<buyer.name<< endl;
     cout << "Amount: ";
     cin >> refundAmount;
@@ -568,6 +574,9 @@ void refundUser(){
     // Check if seller has enough credits for the refund
     if(refundAmount > seller.credit){
         cout << "Error: Seller does not have enough credit, please add credit to user account" << endl;
+        transactionCommands(transactionCommand);
+    }else if((refundAmount+buyer.credit) > 999999999){
+        cout << "Error: Buyer credits cannot exceed $999,999" << endl;
         transactionCommands(transactionCommand);
     }else{
         // deduct refund amount from seller account
@@ -610,21 +619,28 @@ void addCredit(){
             string userType = users[i].type;
             cout << "Please enter the amount to add: ";
             cin >> creditAmount;
-            if(creditAmount <= 1000.00){
-                long totalCredit = users[i].credit + creditAmount;
-                stringstream ss;
-                ss << totalCredit;
-                string availableCredit = ss.str();
-                cout << "Added $"<<creditAmount<<" to "<<userName<<endl;
-                DTF1 *output = CreateDTF1("06", userName, userType, availableCredit);
-                outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+            if(cin.fail()){
+                cout << "Error: Number was not entered." << endl;
                 transactionCommands(transactionCommand);
+                return;
             }else{
-                cout << "Error: Only a maximum of $1000.00 can be added to an account in a given session." << endl;
-                transactionCommands(transactionCommand);
+                if(creditAmount <= 1000.00){
+                    long totalCredit = users[i].credit + creditAmount;
+                    stringstream ss;
+                    ss << totalCredit;
+                    string availableCredit = ss.str();
+                    cout << "Added $"<<creditAmount<<" to "<<userName<<endl;
+                    DTF1 *output = CreateDTF1("06", userName, userType, availableCredit);
+                    outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+                    transactionCommands(transactionCommand);
+                }else{
+                    cout << "Error: Only a maximum of $1000.00 can be added to an account in a given session." << endl;
+                    transactionCommands(transactionCommand);
+                }
             }
+        }else{
+            cout << "Error: Username does not exist." << endl;
+            transactionCommands(transactionCommand);
         }
     }
-
 }
-

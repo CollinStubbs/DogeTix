@@ -3,7 +3,7 @@
 # run the program using the make file
 make
 # test the file with a seller account ANDREWGULLA to perform an admin transaction
-command1='login ANDREWGULLA create'
+command1='login ANDREWGULLA create q'
 echo $command1 | ./DTFE tickets.txt user_info.txt
 
 make clean
