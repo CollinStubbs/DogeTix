@@ -131,28 +131,30 @@ void initialize(string file1, string file2){
             }
             uStream.close();
         }
-        
+
         // For parse testing purposes
-        cout << endl;
-        cout << "INPUT FILES:" << endl;
-        cout << "size of tickets file: " << ticketsSize << " events \n";
-        cout << "size of users file: " << usersSize << " users \n";
-        cout << endl;
-        cout << "Events: "<< endl;    
-        for(int i=0; i<ticketsSize; i++){
-        cout << tickets[i].eventName <<  " ";
-        cout << tickets[i].sellerName <<  " ";
-        cout << tickets[i].nTickets <<  " ";
-        cout << tickets[i].ticketPrice << endl;
-        }
-        cout << endl;
-        cout << "Users: "<< endl;
-        for(int i=0; i<usersSize; i++){
-        cout << users[i].name << " ";
-        cout << users[i].type << " ";
-        cout << users[i].credit << endl;
-        }
-        cout << endl;
+        /*
+           cout << endl;
+           cout << "INPUT FILES:" << endl;
+           cout << "size of tickets file: " << ticketsSize << " events \n";
+           cout << "size of users file: " << usersSize << " users \n";
+           cout << endl;
+           cout << "Events: "<< endl;    
+           for(int i=0; i<ticketsSize; i++){
+           cout << tickets[i].eventName <<  " ";
+           cout << tickets[i].sellerName <<  " ";
+           cout << tickets[i].nTickets <<  " ";
+           cout << tickets[i].ticketPrice << endl;
+           }
+           cout << endl;
+           cout << "Users: "<< endl;
+           for(int i=0; i<usersSize; i++){
+           cout << users[i].name << " ";
+           cout << users[i].type << " ";
+           cout << users[i].credit << endl;
+           }
+           cout << endl;
+           */
         login();
     }
 
@@ -231,6 +233,7 @@ void transactionCommands(string transactionCommand){
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
+            transactionCommands(transactionCommand);
         }
     }else if(transactionCommand == "delete"){
         if((currentUser.type).compare("AA") == 0){
@@ -244,6 +247,8 @@ void transactionCommands(string transactionCommand){
     }else if(transactionCommand == "sell"){
         if((currentUser.type).compare("BS") == 0){
             cout<<"You are not allowed to access this function with a buy account."<<endl;
+            transactionCommands(transactionCommand);
+
         }
         else{
             cout << "You have selected sell" << endl;
@@ -252,6 +257,7 @@ void transactionCommands(string transactionCommand){
     }else if(transactionCommand == "buy"){
         if((currentUser.type).compare("SS") == 0){
             cout<<"You are not allowed to access this function with a sell account."<<endl;
+            transactionCommands(transactionCommand);
         }
         else{
             cout << "You have selected buy" << endl;
@@ -264,6 +270,8 @@ void transactionCommands(string transactionCommand){
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
+            transactionCommands(transactionCommand);
+
         }
     }else if(transactionCommand == "add"){
         if((currentUser.type).compare("AA") == 0){
@@ -272,12 +280,15 @@ void transactionCommands(string transactionCommand){
         }
         else{
             cout << "This is a privileged transaction that requires an Admin account."<<endl;
+            transactionCommands(transactionCommand);
         }
-    // forcequit frontend
+        // forcequit frontend
     }else if(transactionCommand == "q"){
         exit(1);
     }else{
-        cout << "Invalid command, please enter another command" << endl;
+        cout << "Invalid command, please enter another command: ";
+        transactionCommands(transactionCommand);
+
     }
 }
 
@@ -305,49 +316,49 @@ void logout(){
  * - must be logged in to admin account
  */
 void createUser(){
-    string userName; // username
-    string checkString;
+    string userName; 
     string line;
     string userType;
     int offset;
 
     cout<<"Please enter a username to create:";
     cin >> userName;
-    checkString = "create "+userName;
-
     // Check if the current user name is trying to be deleted
     if(currentUser.name.compare(userName) == 0){
         cout << "Error: Cannot create current user" << endl;
-        createUser();
+        transactionCommands(transactionCommand);
     }else{
-        // iterate through users
-        for(int i=0; i<usersSize; i++){
-            // if user account is not found in users
-            if((users[i].name).compare(userName) != 0){
-                cout << "User Types:" << endl;
-                cout << "AA = admin" << endl;
-                cout << "FS = full-standard" << endl;
-                cout << "BS = buy-standard" << endl;
-                cout << "SS = sell-standard" << endl;
-                cout << "Please enter the user type: ";
-                cin >> userType;
-                while(!readDTF.eof()){
-                    getline(readDTF, line);
-                    // Check the daily transaction file if the user has been deleted already
-                    if((offset = line.find(checkString, 0)) != string::npos){
-                        cout << "Error: User has already been previously created" << endl;
-                        // call deleteUser() again
-                        createUser();
-                    }
-                    else{
-                        // Output to console
-                        cout << "created "+userName+" of type "+userType << endl;
-                        DTF1 *output = CreateDTF1("01", userName, userType, "000000000");
-                        outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+        // check if user name length is valid
+        if(userName.length() > userNameLength){
+            cout << "Error: Username length cannot exceed "<<userNameLength;
+            transactionCommands(transactionCommand);
+        }else{
+            // iterate through users
+            for(int i=0; i<usersSize; i++){
+                // if user account is not found in users
+                bool flag=false;
+                for(int i=0; i<usersSize; i++){
+                    if((users[i].name).compare(userName) == 0){
+                        flag=true;
+                        cout << "Error: User already exists";
                         transactionCommands(transactionCommand);
                     }
                 }
-            }   
+                // If the user doesnt exist the create user
+                if(!flag){
+                    cout << "User Types:" << endl;
+                    cout << "AA = admin" << endl;
+                    cout << "FS = full-standard" << endl;
+                    cout << "BS = buy-standard" << endl;
+                    cout << "SS = sell-standard" << endl;
+                    cout << "Please enter the user type: ";
+                    cin >> userType;
+                    cout << "created "+userName+" of type "+userType << endl;
+                    DTF1 *output = CreateDTF1("01", userName, userType, "000000000");
+                    outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+                    transactionCommands(transactionCommand);
+                }
+            } 
         }
     }
 }
@@ -365,36 +376,37 @@ void deleteUser(){
     string line;
     int offset;
 
+    User temp;
+
     cout<<"Please enter a username to delete:";
     cin >> userName;
-    checkString = "02_"+userName;
 
     // Check if the current user name is trying to be deleted
     if(currentUser.name.compare(userName) == 0){
         cout << "Error: Cannot delete current user" << endl;
         transactionCommands(transactionCommand);
     }else{
-        // iterate through userAccounts
-        for(int i = 0; i<usersSize; i++){
-            // check if username exists in userAccounts
+        bool flag=false;
+        for(int i=0; i<usersSize; i++){
             if((users[i].name).compare(userName) == 0){
-                string userType = users[i].type;
-                while(!readDTF.eof()){
-                    getline(readDTF, line);
-                    // Check the daily transaction file if the user has been deleted already
-                    if((offset = line.find(checkString, 0)) != string::npos){
-                        cout << "Error: User has already been previously deleted" << endl;
-                        deleteUser();
-                    }
-                    else{
-                        cout << "deleted "+userName << endl;
-                        DTF1 *output = CreateDTF1("02", userName, userType, "000000000");
-                        outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
-                        transactionCommands(transactionCommand);
-                    }
-                }
+                temp.name = users[i].name;
+                temp.type = users[i].type;
+                temp.credit = users[i].credit;
+                temp.loginState = users[i].loginState;
+                flag=true;
+                // delete the user 
+                cout << "deleted "+temp.name << endl;
+                DTF1 *output = CreateDTF1("02", userName, temp.type, "000000000");
+                // output to the dtf file
+                outToDTF << output->transActionCode << "_"<< output->userName << "_"<<output->userType <<"_"<<output->availableCredit <<endl;
+                transactionCommands(transactionCommand);
             }
-        }   
+        }
+        if(!flag){
+            cout << "Error: User does not exist";
+            transactionCommands(transactionCommand);
+        }
+
     }
 }
 
@@ -406,58 +418,52 @@ void deleteUser(){
  */
 void sellTicket(){
     string eventTitle;
+    string sellerName;
     long ticketPrice;
     int ticketNum;
     string line;
 
     cout << "Please enter the event title: ";
     cin >> eventTitle;
-    string checkString = "sell "+eventTitle;
+
+    bool flag=false;
 
     for(int i=0; i<ticketsSize; i++){
-        string sellerName = currentUser.name;
         if((tickets[i].eventName).compare(eventTitle) == 0){
             cout << "Error: the event already exists" << endl;
+            flag = true;
             transactionCommands(transactionCommand);
-        }else{
-            while(!readDTF.eof()){
-                getline(readDTF, line);
-                int offset;
-                // Check the daily transaction file if the user has been deleted already
-                if((offset = line.find(checkString, 0)) != string::npos){
-                    cout << "Error: the event already exists" << endl;
-                    transactionCommands(transactionCommand);
-                }else{
-                    if(eventTitle.length() <= eventTitleLength){
-                        cout << "Please enter ticket price: ";
-                        cin >> ticketPrice;
-                        if(ticketPrice <= 999.99){ 
-                            cout << "Please enter the amount of tickets to be available for sale: ";
-                            cin >> ticketNum;
-                            if(ticketNum <= 100){
-                                cout << "Selling "<<ticketNum<<" tickets for "<<eventTitle<<" at $"<< ticketPrice;
-                                DTF3 *output = CreateDTF3("06", eventTitle, sellerName, ticketNum, ticketPrice);
-                                outToDTF << output->transActionCode << "_" << output->eventName << "_" << output->sellerName << "_" << output->ticketNum << "_" << output->ticketPrice << endl;
-                                cout << endl;
-                                transactionCommands(transactionCommand);
-                            }else{
-                                cout << "Error: maximum number of tickets for sale is 100" << endl;
-                                transactionCommands(transactionCommand);
-                            }
-                        }else{
-                            cout << "Error: ticket price cannot exceed $999.99" << endl;
-                            transactionCommands(transactionCommand);
-                        }
-                    }else{
-                        cout << "Error: Event title cannot exceed 25 characters" << endl;
-                        transactionCommands(transactionCommand);
-                    }
-                }
-            }
         }
     }
-}
+    if(!flag){
+        sellerName = currentUser.name;
+        if(eventTitle.length() <= eventTitleLength){
+            cout << "Please enter ticket price: ";
+            cin >> ticketPrice;
+            if(ticketPrice <= 999){ 
+                cout << "Please enter the amount of tickets to be available for sale: ";
+                cin >> ticketNum;
+                if(ticketNum <= 100){
+                    cout << "Selling "<<ticketNum<<" tickets for "<<eventTitle<<" at $"<< ticketPrice;
+                    DTF3 *output = CreateDTF3("03", eventTitle, sellerName, ticketNum, ticketPrice);
+                    outToDTF << output->transActionCode << "_" << output->eventName << "_" << output->sellerName << "_" << output->ticketNum << "_" << output->ticketPrice << endl;
+                    cout << endl;
+                    transactionCommands(transactionCommand);
+                }else{
+                    cout << "Error: maximum number of tickets for sale is 100" << endl;
+                    transactionCommands(transactionCommand);
+                }
+            }else{
+                cout << "Error: ticket price cannot exceed $999.99" << endl;
+                transactionCommands(transactionCommand);
+            }
+        }else{
+            cout << "Error: Event title cannot exceed "<< eventTitleLength <<" characters" << endl;
+            transactionCommands(transactionCommand);
+        }
 
+    }
+}
 /*
  * - purchase a tickets or ticket to an event
  * - asks for: event title, number of tickets and the seller’s username
@@ -472,7 +478,8 @@ void buyTicket(){
     long numTickets;
     long total;
     int remTick;
-
+    bool flag=false;
+    
     cout << "Please enter the event name: ";
     cin >> eventName;
     cout << "Please enter the seller’s username:";
@@ -485,9 +492,15 @@ void buyTicket(){
             temp.sellerName = tickets[i].sellerName;
             temp.nTickets = tickets[i].nTickets;
             temp.ticketPrice =  tickets[i].ticketPrice;
+            flag = true;
         }
     }
+    if(!flag){
+        cout << "Error: Event does not exist." << endl;
+        transactionCommands(transactionCommand);
+    }
 
+    // Print the event details
     cout << "EVENT DETAILS: ";
     cout << "Event Title: "<<temp.eventName << endl; 
     cout << "Seller Name: "<<temp.sellerName << endl;
@@ -496,12 +509,12 @@ void buyTicket(){
     cout << endl;
     cout << "Please enter the amount of tickets to purchase: ";
     cin >> numTickets;
-    
+
     if(numTickets > temp.nTickets){
         cout << "Error: There are only "<<temp.nTickets<<" tcket(s) available." << endl;
         transactionCommands(transactionCommand);
     }else{
-        
+
         total = numTickets*temp.ticketPrice;
         remTick = temp.nTickets - numTickets;
         if(currentUser.credit < total){
@@ -525,7 +538,7 @@ void buyTicket(){
             }
         }
     }
-    
+
 }
 
 /*
@@ -535,7 +548,7 @@ void buyTicket(){
  * - save this information in the daily transaction file
  */
 void refundUser(){
-    
+
     long refundAmount;
 
     string bName;
