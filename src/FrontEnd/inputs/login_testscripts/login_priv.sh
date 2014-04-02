@@ -3,7 +3,7 @@
 # run the program using the make file
 make
 # test if a privilaged user can perform a privilaged transaction
-command1='login COLLINSTUBBSSSS create q'
+command1='login COLLINSTUBBSSSS create USERNAME SS q'
 echo $command1 | ./DTFE tickets.txt user_info.txt
 
 make clean

@@ -19,6 +19,7 @@
 #include <cstdlib>
 #include <algorithm>
 #include <iterator>
+#include <limits>
 
 #include "data.h"
 
@@ -630,7 +631,10 @@ void addCredit(){
             string userType = users[i].type;
             cout << "Please enter the amount to add: ";
             cin >> creditAmount;
+            
             if(cin.fail()){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout << "Error: Number was not entered." << endl;
                 transactionCommands(transactionCommand);
                 return;

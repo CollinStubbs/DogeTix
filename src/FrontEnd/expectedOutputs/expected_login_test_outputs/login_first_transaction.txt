@@ -1,0 +1,81 @@
+g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
+g++ frontEnd.o  -o DTFE
+
+
+CURRENT INFORMATION:
+Number of events: 4 events 
+Number of users: 6 users 
+
+Events: 
+THISANEVENTNAMEE SELLERNAMEEEEE 100 999999
+MOVIELAUNCH MATTHEW 1 10
+MYMOVIE SELLERNAME@#$# 10 1010
+MOVIELAUNCHHHHHHHHH SELLERRRRRRRRR 100 1000
+
+Users: 
+MATT AA 999999
+USER AA 999999999
+COLLINSTUBBSSSS AA 1999
+ANDREWGULLA SS 1000
+MATTHEWMILI BS 100000
+USER1 FS 999999
+
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+Please enter username: Successful login!
+
+logout:    logout of a user account and end a frontEnd session
+create:    create a user account
+delete:    delete a user account
+sell:      sell a ticket or tickets to an event
+buy:       purchase a ticket or tickets to an event
+refund:    issue a credit to a buyer’s account from a seller’s account
+add: add credit into the system for the purchase of accounts
+
+Please enter a command: Logging out, have a great day!
+
+
+CURRENT INFORMATION:
+Number of events: 4 events 
+Number of users: 6 users 
+
+Events: 
+THISANEVENTNAMEE SELLERNAMEEEEE 100 999999
+MOVIELAUNCH MATTHEW 1 10
+MYMOVIE SELLERNAME@#$# 10 1010
+MOVIELAUNCHHHHHHHHH SELLERRRRRRRRR 100 1000
+
+Users: 
+MATT AA 999999
+USER AA 999999999
+COLLINSTUBBSSSS AA 1999
+ANDREWGULLA SS 1000
+MATTHEWMILI BS 100000
+USER1 FS 999999
+
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+Error: Cannot perform q You must log in to a user account
+
+
+CURRENT INFORMATION:
+Number of events: 4 events 
+Number of users: 6 users 
+
+Events: 
+THISANEVENTNAMEE SELLERNAMEEEEE 100 999999
+MOVIELAUNCH MATTHEW 1 10
+MYMOVIE SELLERNAME@#$# 10 1010
+MOVIELAUNCHHHHHHHHH SELLERRRRRRRRR 100 1000
+
+Users: 
+MATT AA 999999
+USER AA 999999999
+COLLINSTUBBSSSS AA 1999
+ANDREWGULLA SS 1000
+MATTHEWMILI BS 100000
+USER1 FS 999999
+
+<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
+Please type 'login' to start a Front End session
+rm -f frontEnd.o DTFE
