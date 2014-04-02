@@ -54,6 +54,9 @@ void buyTicket();
 void refundUser();
 void addCredit();
 
+// helper function to remove extra spaces
+string removeSpaces(string input);
+
 /***************************Main method*****************************/
 int main(int argc, char* argv[]){
 
@@ -101,12 +104,17 @@ void initialize(string file1, string file2){
             int x=0;
             while(getline(tStream, tline)){
                 Event temp;
-                temp.eventName = tline.substr (0,19);
+
+                string eventName = tline.substr (0,19);
                 //Formats event name to replace '_' with ' '
-                replace((temp.eventName).begin(), (temp.eventName).end(), '_', ' ');
-                temp.sellerName = tline.substr (20,14);
+                replace((eventName).begin(), (eventName).end(), '_', ' ');
+                temp.eventName = removeSpaces(eventName);
+
+                string sellerName = tline.substr (20,14);
                 //Removes '_' from seller name
-                temp.sellerName.erase(remove(temp.sellerName.begin(), temp.sellerName.end(), '_'), temp.sellerName.end());
+                replace((sellerName).begin(), (sellerName).end(), '_', ' ');
+                temp.sellerName = removeSpaces(sellerName);
+
                 temp.nTickets = atoi((tline.substr (35,3)).c_str());
                 temp.ticketPrice = atoi((tline.substr (39)).c_str());
                 tickets[x] = temp;
@@ -131,36 +139,30 @@ void initialize(string file1, string file2){
             }
             uStream.close();
         }
-
-        // For parse testing purposes
-        /*
-           cout << endl;
-           cout << "INPUT FILES:" << endl;
-           cout << "size of tickets file: " << ticketsSize << " events \n";
-           cout << "size of users file: " << usersSize << " users \n";
-           cout << endl;
-           cout << "Events: "<< endl;    
-           for(int i=0; i<ticketsSize; i++){
-           cout << tickets[i].eventName <<  " ";
-           cout << tickets[i].sellerName <<  " ";
-           cout << tickets[i].nTickets <<  " ";
-           cout << tickets[i].ticketPrice << endl;
-           }
-           cout << endl;
-           cout << "Users: "<< endl;
-           for(int i=0; i<usersSize; i++){
-           cout << users[i].name << " ";
-           cout << users[i].type << " ";
-           cout << users[i].credit << endl;
-           }
-           cout << endl;
-           */
         login();
     }
 
 }
 
 void login(){
+
+    // For parse testing purposes
+    cout << endl;
+    cout << endl;
+    cout << "CURRENT INFORMATION:" << endl;
+    cout << "Number of events: " << ticketsSize << " events \n";
+    cout << "Number of users: " << usersSize << " users \n";
+    cout << endl;
+    cout << "Events: "<< endl;    
+    for(int i=0; i<ticketsSize; i++){
+        cout << tickets[i].eventName <<  " " << tickets[i].sellerName <<  " " << tickets[i].nTickets <<  " " << tickets[i].ticketPrice << endl;
+    }
+    cout << endl;
+    cout << "Users: "<< endl;
+    for(int i=0; i<usersSize; i++){
+        cout << users[i].name << " " << users[i].type << " " << users[i].credit << endl;
+    }
+    cout << endl;
     cout << "<<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>" << endl;
     cout << "Please type 'login' to start a Front End session" << endl;
     while(cin >> transactionCommand){
@@ -473,50 +475,47 @@ void sellTicket(){
  */
 void buyTicket(){
 
-    string eventName;
+    string eventTitle;
     string sellerName;
-    long numTickets;
-    long total;
-    int remTick;
-    bool flag=false;
-    
+    int numTickets;
+    float total;
+    bool flag = false;
+    Event temp; // holder to hold event information 
+
+
     cout << "Please enter the event name: ";
-    cin >> eventName;
+    cin >> eventTitle;
     cout << "Please enter the seller’s username:";
     cin >> sellerName;
-
-    Event temp;
     for(int i=0; i<ticketsSize; i++){
-        if(((tickets[i].eventName) == eventName) && ((tickets[i].sellerName) == sellerName)){
+        if(((tickets[i].eventName).compare(eventTitle) == 0) && ((tickets[i].sellerName).compare(sellerName) == 0)){
+            flag = true;
             temp.eventName = tickets[i].eventName;
-            temp.sellerName = tickets[i].sellerName;
             temp.nTickets = tickets[i].nTickets;
             temp.ticketPrice =  tickets[i].ticketPrice;
-            flag = true;
+            temp.sellerName = tickets[i].sellerName;
         }
     }
     if(!flag){
         cout << "Error: Event does not exist." << endl;
         transactionCommands(transactionCommand);
     }
-
-    // Print the event details
+    // Display event details
     cout << "EVENT DETAILS: ";
     cout << "Event Title: "<<temp.eventName << endl; 
     cout << "Seller Name: "<<temp.sellerName << endl;
     cout << "Available Tickets: "<<temp.nTickets << endl;
     cout << "Price: $"<<temp.ticketPrice<<" per ticket"<< endl;
     cout << endl;
+
     cout << "Please enter the amount of tickets to purchase: ";
     cin >> numTickets;
-
     if(numTickets > temp.nTickets){
-        cout << "Error: There are only "<<temp.nTickets<<" tcket(s) available." << endl;
+        cout << "Error: There are only "<<temp.nTickets<<" ticket(s) available." << endl;
         transactionCommands(transactionCommand);
     }else{
-
         total = numTickets*temp.ticketPrice;
-        remTick = temp.nTickets - numTickets;
+        int remTick = temp.nTickets - numTickets;
         if(currentUser.credit < total){
             cout << "Error: Not enough credits to purchase ticket for event";
             transactionCommands(transactionCommand);
@@ -526,7 +525,7 @@ void buyTicket(){
             cin >> inp;
             if(inp == "y" || inp == "Y"){
                 cout << "Purchased!";
-                DTF3 *output = CreateDTF3("04", eventName, temp.sellerName, remTick, temp.ticketPrice);
+                DTF3 *output = CreateDTF3("04", eventTitle, temp.sellerName, remTick, temp.ticketPrice);
                 outToDTF << output->transActionCode << "_" << output->eventName << "_" << output->sellerName << "_" << output->ticketNum << "_" << output->ticketPrice << endl;
                 transactionCommands(transactionCommand);
             }else if(inp == "n" || inp == "N"){
@@ -538,7 +537,6 @@ void buyTicket(){
             }
         }
     }
-
 }
 
 /*
@@ -656,4 +654,11 @@ void addCredit(){
             transactionCommands(transactionCommand);
         }
     }
+}
+/*
+ * Helper function to remove extra spaces
+ */
+string removeSpaces(string input){
+    input.erase(std::remove(input.begin(),input.end(),' '),input.end());
+    return input;
 }
