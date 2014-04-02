@@ -18,22 +18,14 @@ Back End:
 
 How to use:
 
-Run the makefile
+Compile and run using make
 
       $ make 
-      $ ./DTFE tickets.txt user_info.txt
+      $ make run
       
 How to test properly:
 
-      - Run the frontEndtest.sh script
-      - Go to the output folders and run the comparison.sh scripts
-
-Status as of today:
-- created frontEndtest.sh that should be used to run all frontEnd tests
-- program doesnt end after user logs out so that another user is able to log in
-- created a directory and expected output files to be used to compare with actual output files
-- piped console output to text files in the output directory
-- added a script for comparisons of actual and expected output files
+      $ make test
 
 How to contribute:
 - If you would like to add a feature create a branch from master and develop on that branch
