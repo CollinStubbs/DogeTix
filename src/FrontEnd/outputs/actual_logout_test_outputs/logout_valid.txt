@@ -1,5 +1,7 @@
+make[1]: Entering directory `/home/matthewmilitante/Desktop/School/CSCI 3060U (Software Quality Assurance)/DogeTix/src/FrontEnd'
 g++ -g -c -O0 frontEnd.cpp -o frontEnd.o
 g++ frontEnd.o  -o DTFE
+make[1]: Leaving directory `/home/matthewmilitante/Desktop/School/CSCI 3060U (Software Quality Assurance)/DogeTix/src/FrontEnd'
 
 
 CURRENT INFORMATION:
@@ -68,4 +70,6 @@ USER1 FS 999999
 
 <<<<<<<<<< WELCOME TO DOGETIX >>>>>>>>>>
 Please type 'login' to start a Front End session
+make[1]: Entering directory `/home/matthewmilitante/Desktop/School/CSCI 3060U (Software Quality Assurance)/DogeTix/src/FrontEnd'
 rm -f frontEnd.o DTFE
+make[1]: Leaving directory `/home/matthewmilitante/Desktop/School/CSCI 3060U (Software Quality Assurance)/DogeTix/src/FrontEnd'

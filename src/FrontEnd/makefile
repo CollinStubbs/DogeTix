@@ -18,5 +18,8 @@ $(BINARY): $(OBJECTS)
 run:
 	./DTFE tickets.txt user_info.txt
 
+test: 
+	./frontEndtest.sh
+
 clean:
 	rm -f $(OBJECTS) $(BINARY)
