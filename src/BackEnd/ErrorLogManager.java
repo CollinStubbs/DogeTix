@@ -26,7 +26,7 @@ public class ErrorLogManager{
       writeToLog2();
    }
    
-   //writes to the terminal in the ase of a fatal error
+   //writes to the terminal in the case of a fatal error
    public static void writeToLog(){
       //print to console here with specific messages
       System.out.println("ERROR: type = "+type+

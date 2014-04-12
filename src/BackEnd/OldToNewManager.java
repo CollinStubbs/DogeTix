@@ -13,6 +13,7 @@ package BackEnd;
 public class OldToNewManager{
    String[] userAccountFileHolder;
    String[] availableTicketHolder;
+   ArrayList<String> newUAFAR;
    String[] mergedDTF;
    String[] newUAF;
    String[] newATF;
@@ -24,6 +25,7 @@ public class OldToNewManager{
       this.userAccountFileHolder = userAccountFileHolder;
       this.availableTicketHolder = availableTicketHolder;
       this.mergedDTF = mergedDTF; 
+      newUAFAR = new ArrayList<String>(Arrays.asList(userAccountFileHolder));
         
       if(!applyMergedDTF()){
       //write new error
@@ -54,36 +56,42 @@ public class OldToNewManager{
             b = create(holder);
             if(b == false){
                a = new ErrorLogManager("fatal","error from creation of account");
+               System.exit(0);
             }
          }
          else if(type == "02"){
             b = delete(holder);
             if(b == false){
                a = new ErrorLogManager("fatal", "error from deletion of account");
+               System.exit(0);
             }
          }
          else if(type == "03"){
             b =  sell(holder);
             if(b == false){
                a = new ErrorLogManager("fatal", "error from selling of tickets");
+               System.exit(0);
             }
          }
          else if(type == "04"){
             b = buy(holder);
             if(b == false){
                a = new ErrorLogManager("fatal", "error from buying of tickets");
+               System.exit(0);
             }
          }
          else if(type == "05"){
             b = refund(holder);
             if(b == false){
                a = new ErrorLogManager("fatal", "error from refund of tickets");
+               System.exit(0);
             }
          }
          else if(type == "06"){
             b = addcredit(holder);
             if(b == false){
                a = new ErrorLogManager("fatal", "error from adding of credits");
+               System.exit(0);
             }
          }
          else if(type == "07"){
@@ -91,14 +99,26 @@ public class OldToNewManager{
          }
          else{
             a = new ErrorLogManager("fatal", "error from reading of dtf file");
+            System.exit(0);
          }
       }
-      
-    
-      return false;
+          
+      return true;
    }
    public static boolean create(String x){
-   
+      String nameholder;
+      nameholder = x.substring(3, 18);
+      nameholder = nameholder.substring(0, nameholder.indexOf("__"));
+      //checks if name already exists
+      for(int i = 0; i < userAccountFileHolder.length; i++){
+         if(userAccountFileHolder[i].startsWith(nameholder)){
+            ErrorLogManager a = new ErrorLogManager("constraint", "username already exists", "in create");
+            System.exit(0);
+         }
+      }
+      newUAFAR.add(nameholder);
+      return true;
+      //add user check names
    }
    public static boolean delete(String x){
    
