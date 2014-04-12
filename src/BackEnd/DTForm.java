@@ -11,32 +11,23 @@ public class DTForm
    private String userName;
    private String userType;
    private String availCredit;
-
-   public void setTType(String t){
-      transType = t;
+   
+   public void DTForm(String transType, String userName, String userType, String availCredit){
+      this.transType = transType;
+      this.userName = userName;
+      this.userType = userType;
+      this.availCredit = availCredit;
    }
    public String getTType(){
       return transType;
    }
-
-   public void setName(String n){
-      userName = n;
-   }
    public String getName(){
       return userName;
-   }
-
-   public void setUType(String u){
-      userType = u;
    }
    public String getUType(){
       return userType;
    }
-
-   public void setCredit(String c){
-      availCredit = c;
-   }
    public String getCredit(){
       return availCredit;
    }
- }
+}
