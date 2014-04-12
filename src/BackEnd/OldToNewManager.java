@@ -121,7 +121,13 @@ public class OldToNewManager{
       //add user check names
    }
    public static boolean delete(String x){
-   
+      String nameholder;
+      nameholder = x.substring(3, 18);
+      nameholder = nameholder.substring(0, nameholder.indexOf("__"));
+      
+      newUAFAR.remove(nameholder);
+      return true;
+      
    }
    public static boolean sell(String x){
    
