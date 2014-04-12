@@ -184,7 +184,29 @@ public class OldToNewManager{
       return true;
    }
    public static boolean addcredit(String x){
-   
+      String nameholder;
+      String cH;
+      nameholder = x.substring(3, 18);
+      cH = x.substring(22,31);      
+      nameholder = nameholder.substring(0, nameholder.indexOf("__"));
+      int addcred = Integer.parseInt(cH);
+      
+      for(int i = 0; i < userAccountFileHolder.length; i++){
+         if(userAccountFileHolder[i].startsWith(nameholder)){
+            String temp = userAccountFileHolder[i];
+            
+            String head = substring(0, 19);
+            String tail = substring(19, 28);
+            int credits = Integer.parseInt(tail);
+            credits = credits + addcred;
+            tail = Integer.toString(credits);
+            
+            while(tail.length() > 9){
+               tail = tail.substring(1, tail.length());
+            }
+            userAccountFileHolder[i] = (head+tail);
+         }
+      }
    }
    public static boolean end(String x){
    
