@@ -1,6 +1,7 @@
 
 package BackEnd;
 import java.util.*;
+import java.io.*;
 /********************************************
    This class is used to handle updating and
   creating the new files. BackEndManager creates
@@ -14,11 +15,9 @@ import java.util.*;
 
 public class OldToNewManager{
    static String[] userAccountFileHolder;
-   String[] availableTicketHolder;
+   static String[] availableTicketHolder;
    static ArrayList<String> newUAFAR;
    static String[] mergedDTF;
-   String[] newUAF;
-   String[] newATF;
 
    
    //Constructor
@@ -49,11 +48,6 @@ public class OldToNewManager{
    //used to apply the data from the merged DTF to the user account files
    public static boolean applyMergedDTF(){ 
       ErrorLogManager a;
-      //example of a way to check neg tick errors
-         //String transaction - a substring of the dtf line pertaining to the transaction
-      /*if(!checkTicketNum(num)){
-         //a = new ErrorLogManager("constraint", "negative ticket number", transaction);
-      }*/
       String holder;
       String type;
       boolean b;
@@ -125,6 +119,8 @@ public class OldToNewManager{
          }
       }
       newUAFAR.add(nameholder);
+      userAccountFileHolder = (String[]) newUAFAR.toArray();
+      
       return true;
       //add user check names
    }
@@ -134,6 +130,7 @@ public class OldToNewManager{
       nameholder = nameholder.substring(0, nameholder.indexOf("__"));
       
       newUAFAR.remove(nameholder);
+      userAccountFileHolder = (String[]) newUAFAR.toArray();
       return true;
       
    }
@@ -222,12 +219,31 @@ public class OldToNewManager{
    }
    //used to wrie a new uaf file
    public static boolean writeToNewUAFFile(){
-      
-      return false;
+      try{
+         BufferedWriter out = new BufferedWriter(new FileWriter("UserAccountFile.txt"));
+         for (int i = 0; i < userAccountFileHolder.length; i++) {
+            out.write(userAccountFileHolder[i] + "\n");
+         }
+         out.close();
+      } 
+      catch (IOException e) {
+         ErrorLogManager a = new ErrorLogManager("fatal", "error writing uaf file");
+      }
+      return true;
    }
    
    //used to write a new atf file
    public static boolean writeToNewATFFile(){
+    try{
+         BufferedWriter out = new BufferedWriter(new FileWriter("AvailableTicketFile.txt"));
+         for (int i = 0; i < availableTicketHolder.length; i++) {
+            out.write(availableTicketHolder[i] + "\n");
+         }
+         out.close();
+      } 
+      catch (IOException e) {
+         ErrorLogManager a = new ErrorLogManager("fatal", "error writing uaf file");
+      }
       return false;
    }
       
@@ -237,12 +253,5 @@ public class OldToNewManager{
       return (num>=0)? true : false;
    }
    
-   //used to check for the new user username constraint
-   public static boolean newUserCheck(){
-   //if name does not match any names in the user list 
-   //return true else
-      return false;
-   }
-
 }
 
