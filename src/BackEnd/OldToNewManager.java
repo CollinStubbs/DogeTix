@@ -136,7 +136,52 @@ public class OldToNewManager{
    
    }
    public static boolean refund(String x){
-   
+      String bNH;
+      String sNH;
+      bNH = x.substring(3, 18);
+      sNH = x.substring(19, 34);
+      bNH = bNH.substring(0,bNH.indexOf("__"));
+      sNH = sNH.substring(0,sNH.indexOf("__"));
+      
+      String rCH = x.substring(35, 44);
+      int refundAmount = Integer.parseInt(rCH);
+      
+      //to take money from seller
+      for(int i = 0; i < userAccountFileHolder.length; i++){
+         if(userAccountFileHolder[i].startsWith(sNH)){
+            String temp = userAccountFileHolder[i];
+            
+            String head = substring(0, 19);
+            String tail = substring(19, 28);
+            int credits = Integer.parseInt(tail);
+            credits = credits - refundAmount;
+            tail = Integer.toString(credits);
+            
+            while(tail.length() != 9){
+               tail = "0"+tail;
+            }
+            userAccountFileHolder[i] = (head+tail);
+         }
+      }
+      //to add money to buyer
+      for(int i = 0; i < userAccountFileHolder.length; i++){
+         if(userAccountFileHolder[i].startsWith(bNH)){
+            String temp = userAccountFileHolder[i];
+            
+            String head = substring(0, 19);
+            String tail = substring(19, 28);
+            int credits = Integer.parseInt(tail);
+            credits = credits + refundAmount;
+            tail = Integer.toString(credits);
+            
+            while(tail.length() > 9){
+               tail = tail.substring(1, tail.length());
+            }
+            userAccountFileHolder[i] = (head+tail);
+         }
+      }
+      //take money from both and add ticket num to atf
+      return true;
    }
    public static boolean addcredit(String x){
    
