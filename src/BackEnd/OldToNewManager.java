@@ -30,12 +30,18 @@ public class OldToNewManager{
       newUAFAR = new ArrayList<String>(Arrays.asList(userAccountFileHolder));
         
       if(!applyMergedDTF()){
+         a = new ErrorLogManager("fatal", "parsing error");
+         System.exit(0);
       //write new error
       }
       else if(!writeToNewUAFFile()){
+         a = new ErrorLogManager("fatal", "error writing to user account file");
+         System.exit(0);
       //write new error
       }
       else if(!writeToNewATFFile()){
+         a = new ErrorLogManager("fatal", "error writing to available ticket file");
+         System.exit(0);
       //write new error
       }
    }
@@ -132,10 +138,10 @@ public class OldToNewManager{
       
    }
    public static boolean sell(String x){
-   return true;
+      return true;
    }
    public static boolean buy(String x){
-   return true;
+      return true;
    }
    public static boolean refund(String x){
       String bNH;
@@ -212,7 +218,7 @@ public class OldToNewManager{
       return true;
    }
    public static boolean end(String x){
-   return true;
+      return true;
    }
    //used to wrie a new uaf file
    public static boolean writeToNewUAFFile(){
@@ -224,13 +230,7 @@ public class OldToNewManager{
    public static boolean writeToNewATFFile(){
       return false;
    }
-   
-   //used to create an instance of ErrorLogManager in the case of an error
-   public static boolean writeError(String msg){
-      //ErrorLogManager log = new ErrorLogManager);
-      return false;
-   }
-   
+      
    //used to check for negative ticknum constraint
    //param - num is the number of tickets
    public static boolean checkTicketNum(int num){
