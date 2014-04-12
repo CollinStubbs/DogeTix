@@ -1,4 +1,6 @@
+
 package BackEnd;
+import java.util.*;
 /********************************************
    This class is used to handle updating and
   creating the new files. BackEndManager creates
@@ -11,10 +13,10 @@ package BackEnd;
 
 
 public class OldToNewManager{
-   String[] userAccountFileHolder;
+   static String[] userAccountFileHolder;
    String[] availableTicketHolder;
-   ArrayList<String> newUAFAR;
-   String[] mergedDTF;
+   static ArrayList<String> newUAFAR;
+   static String[] mergedDTF;
    String[] newUAF;
    String[] newATF;
 
@@ -130,10 +132,10 @@ public class OldToNewManager{
       
    }
    public static boolean sell(String x){
-   
+   return true;
    }
    public static boolean buy(String x){
-   
+   return true;
    }
    public static boolean refund(String x){
       String bNH;
@@ -151,8 +153,8 @@ public class OldToNewManager{
          if(userAccountFileHolder[i].startsWith(sNH)){
             String temp = userAccountFileHolder[i];
             
-            String head = substring(0, 19);
-            String tail = substring(19, 28);
+            String head = temp.substring(0, 19);
+            String tail = temp.substring(19, 28);
             int credits = Integer.parseInt(tail);
             credits = credits - refundAmount;
             tail = Integer.toString(credits);
@@ -168,8 +170,8 @@ public class OldToNewManager{
          if(userAccountFileHolder[i].startsWith(bNH)){
             String temp = userAccountFileHolder[i];
             
-            String head = substring(0, 19);
-            String tail = substring(19, 28);
+            String head = temp.substring(0, 19);
+            String tail = temp.substring(19, 28);
             int credits = Integer.parseInt(tail);
             credits = credits + refundAmount;
             tail = Integer.toString(credits);
@@ -195,8 +197,8 @@ public class OldToNewManager{
          if(userAccountFileHolder[i].startsWith(nameholder)){
             String temp = userAccountFileHolder[i];
             
-            String head = substring(0, 19);
-            String tail = substring(19, 28);
+            String head = temp.substring(0, 19);
+            String tail = temp.substring(19, 28);
             int credits = Integer.parseInt(tail);
             credits = credits + addcred;
             tail = Integer.toString(credits);
@@ -207,9 +209,10 @@ public class OldToNewManager{
             userAccountFileHolder[i] = (head+tail);
          }
       }
+      return true;
    }
    public static boolean end(String x){
-   
+   return true;
    }
    //used to wrie a new uaf file
    public static boolean writeToNewUAFFile(){
