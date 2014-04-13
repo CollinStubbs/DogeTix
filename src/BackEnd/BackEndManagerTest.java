@@ -44,15 +44,6 @@ public class BackEndManagerTest {
    }
    
    @Test public void sellTest() {
-      Assert.assertEquals(true, OldToNewManager.sell("03_ANEVENT_____________ANDREWGULLAA____030_000000100"));
+      Assert.assertEquals(true, OldToNewManager.sell("03_ANDREWGULLAA____SS_000001000"));
    }
-   
-   @Test public void buyTest() {
-      Assert.assertEquals(true, OldToNewManager.buy("04_ANEVENT_____________ANDREWGULLAA____003_000000100"));
-   }
-   
-   @Test public void refundTest() {
-      Assert.assertEquals(true, OldToNewManager.refund("05_ANDREWGULLAAA_______ANDREWGULLAA___000000300"));
-   }
-  
 }
