@@ -251,9 +251,7 @@ public class OldToNewManager{
       }
       return true;
    }
-   public static boolean end(String x){
-      return true;
-   }
+
    //used to wrie a new uaf file
    public static boolean writeToNewUAFFile(){
       try{

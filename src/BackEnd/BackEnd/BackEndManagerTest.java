@@ -34,7 +34,40 @@ public class BackEndManagerTest {
    @Test public void applyMergedDTFTest() {
       Assert.assertEquals(true, OldToNewManager.applyMergedDTF());
    }
+   //create - DECISION AND LOOP COVERAGE
+   /*
    
+   Looping:
+      Our backend was not designed in a way that is optimal for looping coverage.
+      The best example we can give is with our create function. This function
+      has a loop in it that checks the name with every other name in the UserAccountFile.
+      To test this function with zero loops the User Account File must be empty.
+      To safely test our other methods we thought it best to keep the User Account File intact
+      and to give a simulation in the comments below of what could happen.
+      
+      First for the loop coverage is 0 loops (this is assuming empty UAF):
+      
+      @Test public void createNoLoopsTest() {
+         Assert.assertEquals(true, OldToNewManager.create("01_Collin__________BS_000000000"));
+      }
+      
+      Second is the 1 loop (this is asusming the UserAccountFile is populated with 1 user):
+      
+      @Test public void createTest() {
+         Assert.assertEquals(true, OldToNewManager.create("01_UNIQUENAME1_____BS_000000000"));
+      }
+      
+      Third is the multiple times loop (this is assuming the UAF is populated with multiple users):
+      
+      @Test public void createTest() {
+         Assert.assertEquals(true, OldToNewManager.create("01_CollinCollin____BS_000000000"));
+      }
+   Decision:
+      For our decision part we want to cover every entry and exit possible in every possible way.
+      There are two entries within the method, a for loop for looping over user's and an if statement
+      that checks their names with the new one. To enter the for loop we would just run createTest below.
+      This has been designed as a unique username to exit as well.
+   */
    @Test public void createTest() {
       Assert.assertEquals(true, OldToNewManager.create("01_Collin__________BS_000000000"));
    }
