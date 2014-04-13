@@ -64,9 +64,13 @@ public class BackEndManagerTest {
       }
    Decision:
       For our decision part we want to cover every entry and exit possible in every possible way.
-      There are two entries within the method, a for loop for looping over user's and an if statement
-      that checks their names with the new one. To enter the for loop we would just run createTest below.
-      This has been designed as a unique username to exit as well.
+      There are three entries within the method, a for loop for looping over user's, an if statement to check
+      the amount of money the user is being created with, and an if statement that checks their names with the
+      new one. To enter the for loop we would just run createTest below. This has been designed as a unique username
+      to exit as well. To enter the if statement abou tthe usernames we would run createWithNonUniqueTest, this has
+      been designed to create a user with an existing username this will enter the statement and exit appropriatley.
+      The last if statement is entered with createWithTooMuchMoneyTest, this will enter the statement but not exit 
+      as it produces an error that halts the system.
    */
    @Test public void createTest() {
       Assert.assertEquals(true, OldToNewManager.create("01_Collin__________BS_000000000"));
