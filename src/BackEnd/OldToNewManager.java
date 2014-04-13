@@ -17,6 +17,7 @@ public class OldToNewManager{
    static String[] userAccountFileHolder;
    static String[] availableTicketHolder;
    static ArrayList<String> newUAFAR;
+   static ArrayList<String> newATFAF;
    static String[] mergedDTF;
 
    
@@ -26,8 +27,8 @@ public class OldToNewManager{
       this.userAccountFileHolder = userAccountFileHolder;
       this.availableTicketHolder = availableTicketHolder;
       this.mergedDTF = mergedDTF; 
-      newUAFAR = new ArrayList<String>(Arrays.asList(userAccountFileHolder));
-        
+      
+   
       if(!applyMergedDTF()){
          a = new ErrorLogManager("fatal", "parsing error");
          System.exit(0);
@@ -108,6 +109,8 @@ public class OldToNewManager{
       return true;
    }
    public static boolean create(String x){
+      newUAFAR = new ArrayList<String>(Arrays.asList(userAccountFileHolder));
+   
       String nameholder;
       nameholder = x.substring(3, 18);
       nameholder = nameholder.substring(0, nameholder.indexOf("__"));
@@ -125,6 +128,8 @@ public class OldToNewManager{
       //add user check names
    }
    public static boolean delete(String x){
+      newUAFAR = new ArrayList<String>(Arrays.asList(userAccountFileHolder));
+   
       String nameholder;
       nameholder = x.substring(3, 18);
       nameholder = nameholder.substring(0, nameholder.indexOf("__"));
@@ -135,6 +140,14 @@ public class OldToNewManager{
       
    }
    public static boolean sell(String x){
+      newATFAF = new ArrayList<String>(Arrays.asList(availableTicketHolder));
+      //evN is 19
+      String eNH;
+      eNH = x.substring(3, 46);
+      //eNH = eNH.substring(0, eNH.indexOf("__"));
+      newATFAF.add(eNH);
+      availableTicketHolder = (String[]) newATFAF.toArray();
+      
       return true;
    }
    public static boolean buy(String x){
@@ -234,7 +247,7 @@ public class OldToNewManager{
    
    //used to write a new atf file
    public static boolean writeToNewATFFile(){
-    try{
+      try{
          BufferedWriter out = new BufferedWriter(new FileWriter("AvailableTicketFile.txt"));
          for (int i = 0; i < availableTicketHolder.length; i++) {
             out.write(availableTicketHolder[i] + "\n");
