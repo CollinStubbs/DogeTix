@@ -54,5 +54,14 @@ public class BackEndManagerTest {
    @Test public void refundTest() {
       Assert.assertEquals(true, OldToNewManager.refund("05_ANDREWGULLAAA_______ANDREWGULLAA___000000300"));
    }
-  
+   
+   @Test public void addcreditTest() {
+      Assert.assertEquals(true, OldToNewManager.addcredit("02_ANDREWGULLAAA___SS_000001000"));
+   }
+   @Test public void writenewUAFTest() {
+      Assert.assertEquals(true, OldToNewManager.writeToNewUAFFile());
+   }
+   @Test public void writenewATFTest() {
+      Assert.assertEquals(true, OldToNewManager.writeToNewATFFile());
+   }
 }
