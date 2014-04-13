@@ -151,6 +151,30 @@ public class OldToNewManager{
       return true;
    }
    public static boolean buy(String x){
+      String eventholder;
+      String nameholder;
+      int tnum = Integer.parseInt(x.substring(39, 42));
+      eventholder = x.substring(3, 22);
+      nameholder = x.substring(23, 38);
+      String ppt = x.substring(42, 49);
+      for(int i = 0; i < availableTicketHolder.length; i++){
+         if(availableTicketHolder[i].contains(nameholder) && availableTicketHolder[i].startsWith(eventholder)){
+            int actTnum = Integer.parseInt(availableTicketHolder[i].substring(36, 39));
+            
+            if((actTnum-tnum) <0){
+               ErrorLogManager a = new ErrorLogManager("constraint", "error buying tickets", "not enough tickets");
+               System.exit(0);
+            }
+            else{
+               actTnum = actTnum - tnum;
+            }
+            //write to array
+            
+            String line = eventholder + "_" + nameholder + "_" + (Integer.toString(actTnum)) + ppt;
+            availableTicketHolder[i] = line;
+         }
+      }
+   
       return true;
    }
    public static boolean refund(String x){
@@ -162,7 +186,7 @@ public class OldToNewManager{
       sNH = sNH.substring(0,sNH.indexOf("__"));
       
       String rCH = x.substring(35, 44);
-      int refundAmount = Integer.parseInt(rCH);
+      double refundAmount = Double.parseDouble(rCH);
       
       //to take money from seller
       for(int i = 0; i < userAccountFileHolder.length; i++){
@@ -171,9 +195,9 @@ public class OldToNewManager{
             
             String head = temp.substring(0, 19);
             String tail = temp.substring(19, 28);
-            int credits = Integer.parseInt(tail);
+            double credits = Double.parseDouble(tail);
             credits = credits - refundAmount;
-            tail = Integer.toString(credits);
+            tail = Double.toString(credits);
             
             while(tail.length() != 9){
                tail = "0"+tail;
@@ -188,9 +212,9 @@ public class OldToNewManager{
             
             String head = temp.substring(0, 19);
             String tail = temp.substring(19, 28);
-            int credits = Integer.parseInt(tail);
+            double credits = Double.parseDouble(tail);
             credits = credits + refundAmount;
-            tail = Integer.toString(credits);
+            tail = Double.toString(credits);
             
             while(tail.length() > 9){
                tail = tail.substring(1, tail.length());
@@ -207,7 +231,7 @@ public class OldToNewManager{
       nameholder = x.substring(3, 18);
       cH = x.substring(22,31);      
       nameholder = nameholder.substring(0, nameholder.indexOf("__"));
-      int addcred = Integer.parseInt(cH);
+      double addcred = Double.parseDouble(cH);
       
       for(int i = 0; i < userAccountFileHolder.length; i++){
          if(userAccountFileHolder[i].startsWith(nameholder)){
@@ -215,9 +239,9 @@ public class OldToNewManager{
             
             String head = temp.substring(0, 19);
             String tail = temp.substring(19, 28);
-            int credits = Integer.parseInt(tail);
+            double credits = Double.parseDouble(tail);
             credits = credits + addcred;
-            tail = Integer.toString(credits);
+            tail = Double.toString(credits);
             
             while(tail.length() > 9){
                tail = tail.substring(1, tail.length());
@@ -260,11 +284,6 @@ public class OldToNewManager{
       return false;
    }
       
-   //used to check for negative ticknum constraint
-   //param - num is the number of tickets
-   public static boolean checkTicketNum(int num){
-      return (num>=0)? true : false;
-   }
    
 }
 
