@@ -35,7 +35,15 @@ public class BackEndManagerTest {
       Assert.assertEquals(true, OldToNewManager.applyMergedDTF());
    }
    
-   @Test public void applyMergedDTFTest() {
-      Assert.assertEquals(true, OldToNewManager.applyMergedDTF());
+   @Test public void createTest() {
+      Assert.assertEquals(true, OldToNewManager.create("01_Collin__________BS_000000000"));
+   }
+   
+   @Test public void deleteTest() {
+      Assert.assertEquals(true, OldToNewManager.delete("02_ANDREWGULLA_____SS_000001000"));
+   }
+   
+   @Test public void sellTest() {
+      Assert.assertEquals(true, OldToNewManager.sell("03_ANDREWGULLAA____SS_000001000"));
    }
 }
