@@ -117,7 +117,7 @@ public class OldToNewManager{
       //checks if name already exists
       for(int i = 0; i < userAccountFileHolder.length; i++){
          if(userAccountFileHolder[i].startsWith(nameholder)){
-            ErrorLogManager a = new ErrorLogManager("constraint", "username already exists", "in create");
+            ErrorLogManager a = new ErrorLogManager("constraint", "username already exists", "error in create");
             System.exit(0);
          }
       }
